@@ -1,0 +1,10 @@
+{
+  "extends": "@kobe/tsconfig",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+    }
+  }
+}

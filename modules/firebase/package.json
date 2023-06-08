@@ -1,0 +1,13 @@
+{
+  "name": "@kobe/firebase",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@nestjs/common": "^9.4.2",
+    "firebase-admin": "^11.8.0"
+  },
+  "devDependencies": {
+    "@kobe/common": "workspace:^",
+    "@kobe/tsconfig": "workspace:^"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "extends": "@kobe/tsconfig",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist"
+  }
+}
