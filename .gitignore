@@ -1,0 +1,13 @@
+# compiled output
+/node_modules
+
+# Logs
+logs
+*.log
+pnpm-debug.log*
+
+# OS
+.DS_Store
+
+# IDEs and editors
+/.idea

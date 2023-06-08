@@ -1,0 +1,6 @@
+{
+  "extends": "@kobe/tsconfig",
+  "compilerOptions": {
+    "lib": ["esnext", "dom"]
+  }
+}

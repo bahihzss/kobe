@@ -1,0 +1,17 @@
+{
+  "name": "@kobe/common",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@kobe/patterns": "workspace:^",
+    "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "@kobe/jest-config": "workspace:^",
+    "@kobe/tsconfig": "workspace:^",
+    "@types/jest": "29.5.1",
+    "@types/node": "20.2.5",
+    "jest": "29.5.0",
+    "typescript": "^5.0.0"
+  }
+}
