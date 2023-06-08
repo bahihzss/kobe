@@ -17,6 +17,6 @@ export class PairInMemoryRepository implements PairRepository {
 
   async findLatest(teamId: TeamId) {
     const pairsInTeam = this.pairs.filter((pair) => pair.serialize().teamId === teamId.value)
-    return this.pairs.slice(-1)[0]
+    return pairsInTeam.slice(-1)[0]
   }
 }
