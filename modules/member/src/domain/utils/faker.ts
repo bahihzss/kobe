@@ -14,7 +14,7 @@ export const participantIdArray = (count: number) => {
 }
 
 export const teamMembers = (count = 3) => {
-  return TeamMembers.create(participantIdArray(count))
+  return new TeamMembers(participantIdArray(count))
 }
 
 export const team = () => {

@@ -3,22 +3,22 @@ import { DomainException } from '@kobe/common/domain/error'
 import { ICollection } from '@kobe/common/domain/type/collection.interface'
 
 export class TeamMembers implements ICollection<ParticipantId> {
-  readonly type = 'TeamMembers'
+  readonly type = 'TeamMembers' as const
 
-  private static readonly MIN_COUNT = 3
+  private static readonly MIN_MEMBERS_COUNT = 3
 
-  constructor(private memberIds: ParticipantId[] = []) {}
-
-  static create(memberIds: ParticipantId[]) {
-    if (memberIds.length < TeamMembers.MIN_COUNT) {
-      throw new DomainException(`メンバー数は最低 ${TeamMembers.MIN_COUNT} 人必要です`)
-    }
-
-    return new TeamMembers(memberIds)
+  constructor(private memberIds: ParticipantId[] = []) {
+    this.validate()
   }
 
-  get count() {
-    return this.memberIds.length
+  private validate() {
+    if (this.count < TeamMembers.MIN_MEMBERS_COUNT) {
+      throw new DomainException(`メンバー数は最低 ${TeamMembers.MIN_MEMBERS_COUNT} 人必要です`)
+    }
+
+    if (this.count !== new Set(this.memberIds).size) {
+      throw new DomainException('重複した参加者がいます')
+    }
   }
 
   add(newMemberId: ParticipantId) {
@@ -26,11 +26,8 @@ export class TeamMembers implements ICollection<ParticipantId> {
   }
 
   remove(leavingMemberId: ParticipantId) {
-    switch (true) {
-      case !this.includes(leavingMemberId):
-        throw new DomainException(`${leavingMemberId.value} は在籍していないです`)
-      case this.isMin():
-        throw new DomainException(`メンバー数が ${TeamMembers.MIN_COUNT} 人を下回ってしまいます`)
+    if (!this.includes(leavingMemberId)) {
+      throw new DomainException(`${leavingMemberId.value} は在籍していません`)
     }
 
     return new TeamMembers(this.memberIds.filter((memberId) => !memberId.equals(leavingMemberId)))
@@ -40,8 +37,8 @@ export class TeamMembers implements ICollection<ParticipantId> {
     return this.memberIds.some((memberId) => memberId.equals(participantId))
   }
 
-  private isMin() {
-    return this.count === TeamMembers.MIN_COUNT
+  private get count() {
+    return this.memberIds.length
   }
 
   serialize() {
