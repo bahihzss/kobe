@@ -11,6 +11,10 @@ export class TeamMembers implements ICollection<ParticipantId> {
     this.validate()
   }
 
+  get count() {
+    return this.memberIds.length
+  }
+
   private validate() {
     if (this.count < TeamMembers.MIN_MEMBERS_COUNT) {
       throw new DomainException(`メンバー数は最低 ${TeamMembers.MIN_MEMBERS_COUNT} 人必要です`)
@@ -33,12 +37,16 @@ export class TeamMembers implements ICollection<ParticipantId> {
     return new TeamMembers(this.memberIds.filter((memberId) => !memberId.equals(leavingMemberId)))
   }
 
-  private includes(participantId: ParticipantId) {
-    return this.memberIds.some((memberId) => memberId.equals(participantId))
+  compareWith(other: TeamMembers) {
+    return this.count - other.count
   }
 
-  private get count() {
-    return this.memberIds.length
+  hasSameCount(other: TeamMembers) {
+    return this.count === other.count
+  }
+
+  private includes(participantId: ParticipantId) {
+    return this.memberIds.some((memberId) => memberId.equals(participantId))
   }
 
   serialize() {

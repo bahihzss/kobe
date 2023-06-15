@@ -66,4 +66,39 @@ describe('TeamMembers', () => {
     expect(act).toThrow(DomainException)
     expect(act).toThrow(`${nonMemberId.value} は在籍していません`)
   })
+
+  test('メンバー数で比較できる：数が同じ場合は 0 を返す', () => {
+    const teamMembers = new TeamMembers(Faker.participantIdArray(3))
+    const otherTeamMembers = new TeamMembers(Faker.participantIdArray(3))
+
+    const actual = teamMembers.compareWith(otherTeamMembers)
+
+    expect(actual).toBe(0)
+  })
+
+  test('メンバー数で比較できる：自分の方が多い場合は正の数を返す', () => {
+    const teamMembers = new TeamMembers(Faker.participantIdArray(4))
+    const otherTeamMembers = new TeamMembers(Faker.participantIdArray(3))
+
+    const actual = teamMembers.compareWith(otherTeamMembers)
+
+    expect(actual).toBeGreaterThan(0)
+  })
+
+  test('メンバー数で比較できる：自分の方が少ない場合は負の数を返す', () => {
+    const teamMembers = new TeamMembers(Faker.participantIdArray(3))
+    const otherTeamMembers = new TeamMembers(Faker.participantIdArray(4))
+
+    const actual = teamMembers.compareWith(otherTeamMembers)
+
+    expect(actual).toBeLessThan(0)
+  })
+
+  test('メンバー数が同じかどうかを判定できる', () => {
+    const teamMembers = new TeamMembers(Faker.participantIdArray(3))
+    const otherTeamMembers = new TeamMembers(Faker.participantIdArray(4))
+
+    expect(teamMembers.hasSameCount(teamMembers)).toBe(true)
+    expect(teamMembers.hasSameCount(otherTeamMembers)).toBe(false)
+  })
 })
