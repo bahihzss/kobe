@@ -1,3 +1,4 @@
+import { ParticipantId } from '@domain/participant/models'
 import { Team, TeamId, TeamName } from '@domain/team/models'
 import { Faker } from '@domain/utils'
 import { patterns } from '@kobe/patterns'
@@ -32,6 +33,15 @@ describe('Team', () => {
 
     expect(team.serialize().name).toEqual('2')
     expect(teamCreatedEvent.serialize().payload.name).toEqual('2')
+  })
+
+  test('addMember でメンバーを追加できる', () => {
+    const team = Faker.team()
+    const newMemberId = new ParticipantId()
+    const [addedTeam, teamMemberAddedEvent] = team.addMember(newMemberId)
+
+    expect(addedTeam.serialize().members).toContain(newMemberId.value)
+    expect(teamMemberAddedEvent.serialize().payload.newTeamMemberId).toEqual(newMemberId.value)
   })
 
   test('reconstruct で DB のデータからインスタンスを再構築できる', () => {

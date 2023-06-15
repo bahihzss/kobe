@@ -4,15 +4,11 @@ import { TeamMembers } from '@domain/team/models/team-members'
 import { IEvent } from '@kobe/common/domain'
 
 export class TeamCreated implements IEvent {
-  public readonly id: TeamEventId
-  public readonly teamId: TeamId
-  public readonly createdAt: Date
+  public readonly id: TeamEventId = new TeamEventId()
+  public readonly teamId: TeamId = new TeamId()
+  public readonly createdAt: Date = new Date()
 
-  constructor(public readonly name: TeamName, public readonly members: TeamMembers) {
-    this.id = new TeamEventId()
-    this.teamId = new TeamId()
-    this.createdAt = new Date()
-  }
+  constructor(public readonly name: TeamName, public readonly members: TeamMembers) {}
 
   serialize() {
     return {

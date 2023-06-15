@@ -1,5 +1,5 @@
 import { Team } from '@domain/team/models'
-import { OpenTeamFinder } from '@domain/team/services/open-team-finder.service'
+import { OpenTeamFinder } from '@domain/team/services'
 import { Faker } from '@domain/utils'
 import { TeamInMemoryRepository } from '@infra/repository'
 

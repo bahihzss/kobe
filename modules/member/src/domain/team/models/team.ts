@@ -1,4 +1,5 @@
-import { TeamCreated } from '@domain/team/events'
+import { ParticipantId } from '@domain/participant/models'
+import { TeamCreated, TeamMemberAdded } from '@domain/team/events'
 import { TeamId, TeamName } from '@domain/team/models'
 import { TeamMembers } from '@domain/team/models/team-members'
 import { IEntity } from '@kobe/common/domain'
@@ -14,9 +15,18 @@ export class Team implements IEntity {
 
     return [team, event] as const
   }
-
   onCreated(event: TeamCreated) {
     return new Team(event.teamId, event.name, event.members)
+  }
+
+  addMember(participantId: ParticipantId) {
+    const event = new TeamMemberAdded(this.id, participantId)
+    const team = this.onMemberAdded(event)
+
+    return [team, event] as const
+  }
+  onMemberAdded(event: TeamMemberAdded) {
+    return new Team(this.id, this.name, this.members.add(event.newTeamMemberId))
   }
 
   equals(other: Team): boolean {
