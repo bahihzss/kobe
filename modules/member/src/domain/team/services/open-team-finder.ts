@@ -1,11 +1,12 @@
 import { TeamRepository } from '@domain/team/interfaces'
 import { Team } from '@domain/team/models'
 import { Inject, Injectable } from '@nestjs/common'
+import { Token } from '@root/token'
 
 @Injectable()
 export class OpenTeamFinder {
   constructor(
-    @Inject('TeamRepository')
+    @Inject(Token.TeamRepository)
     private teamRepository: TeamRepository,
   ) {}
 
@@ -18,7 +19,7 @@ export class OpenTeamFinder {
   }
 
   private getFirstOpenTeam(teams: Team[]) {
-    return teams.sort((teamA, teamB) => teamA.compareWith(teamB))[0]
+    return [...teams].sort((teamA, teamB) => teamA.compareWith(teamB))[0]
   }
 
   private getAllOpenTeams(teams: Team[], firstOpenTeam: Team) {

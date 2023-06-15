@@ -7,8 +7,6 @@ import { CommandBus, CqrsModule, EventBus } from '@nestjs/cqrs'
 import { Test, TestingModule } from '@nestjs/testing'
 import { Token } from '@root/token'
 
-jest.mock('@infra/repository')
-
 describe('CreateTeamCommand', () => {
   let testApp: TestingModule
   let commandBus: CommandBus
@@ -31,6 +29,7 @@ describe('CreateTeamCommand', () => {
 
   test('チームが作成される', async () => {
     const teamRepository = testApp.get<TeamInMemoryRepository>(Token.TeamRepository)
+    jest.spyOn(teamRepository, 'store')
     const members = Faker.teamMembers()
 
     await commandBus.execute(new CreateTeamCommand(members))
