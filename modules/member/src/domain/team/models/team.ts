@@ -23,6 +23,14 @@ export class Team implements IEntity {
     return this.id.equals(other.id)
   }
 
+  compareWith(other: Team): number {
+    return this.members.compareWith(other.members)
+  }
+
+  hasSameMemberCount(other: Team): boolean {
+    return this.members.hasSameCount(other.members)
+  }
+
   static reconstruct(args: { id: TeamId; name: TeamName; members: TeamMembers }) {
     return new Team(args.id, args.name, args.members)
   }

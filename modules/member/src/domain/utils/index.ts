@@ -1,1 +1,1 @@
-export * as Faker from './faker'
+export * from './faker'

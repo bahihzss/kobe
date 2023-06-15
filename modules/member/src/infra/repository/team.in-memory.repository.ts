@@ -22,4 +22,8 @@ export class TeamInMemoryRepository implements TeamRepository {
   async findLatest() {
     return this.teams.slice(-1)[0]
   }
+
+  async findAll() {
+    return this.teams
+  }
 }

@@ -5,4 +5,5 @@ export interface TeamRepository {
   store(team: Team, teamEvent: TeamEvent): Promise<void>
   findById(teamId: TeamId): Promise<Team | undefined>
   findLatest(): Promise<Team | undefined>
+  findAll(): Promise<Team[]>
 }
