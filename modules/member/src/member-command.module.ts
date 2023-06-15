@@ -1,3 +1,4 @@
+// import { sagas } from '@app/sagas'
 import { useCases } from '@app/use-case'
 import { repositories } from '@infra/repository'
 import { FirebaseModule } from '@kobe/firebase'
@@ -11,6 +12,7 @@ import { commandHandlers } from '@root/domain'
   providers: [
     // app
     ...useCases,
+    // ...sagas,
     // domain
     ...commandHandlers,
     // infra
