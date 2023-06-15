@@ -5,7 +5,7 @@ import { TeamMembers } from '@domain/team/models/team-members'
 import { IEntity } from '@kobe/common/domain'
 
 export class Team implements IEntity {
-  private constructor(private readonly id: TeamId, private readonly name: TeamName, private members: TeamMembers) {}
+  private constructor(public readonly id: TeamId, private readonly name: TeamName, private members: TeamMembers) {}
 
   static create(args: { members: TeamMembers; latestTeam?: Team }) {
     const teamName = args.latestTeam ? args.latestTeam.name.next : TeamName.first
@@ -26,7 +26,7 @@ export class Team implements IEntity {
     return [team, event] as const
   }
   onMemberAdded(event: TeamMemberAdded) {
-    return new Team(this.id, this.name, this.members.add(event.newTeamMemberId))
+    return new Team(this.id, this.name, this.members.add(event.newMemberId))
   }
 
   equals(other: Team): boolean {

@@ -6,7 +6,8 @@ import { TeamInMemoryRepository } from '@infra/repository'
 describe('OpenTeamFinder', () => {
   test('人数が少ないチームからランダムで１チーム取得する', async () => {
     const teams = [Faker.team(3), Faker.team(3), Faker.team(4), Faker.team(5)]
-    const teamRepository = new TeamInMemoryRepository(teams)
+    const teamRepository = new TeamInMemoryRepository()
+    teamRepository.teams = teams
     const openTeamFinder = new OpenTeamFinder(teamRepository)
 
     const actualTeam = await openTeamFinder.find()

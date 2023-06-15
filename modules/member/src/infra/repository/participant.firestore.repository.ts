@@ -3,31 +3,32 @@ import { ParticipantRepository } from '@domain/participant/interfaces'
 import { Participant, ParticipantId, ParticipantName } from '@domain/participant/models'
 import { collection } from '@infra/collection'
 import { ParticipantDocument, ParticipantEventDocument } from '@infra/interface/participant.document'
-import { Refs } from '@kobe/firebase/utils'
+import { references, Refs } from '@infra/refs'
 import { Injectable } from '@nestjs/common'
 import { Firestore } from 'firebase-admin/firestore'
 
 @Injectable()
 export class ParticipantFirestoreRepository implements ParticipantRepository {
-  constructor(
-    private readonly firestore: Firestore,
-    private readonly refs: Refs<ParticipantDocument, ParticipantEventDocument>,
-  ) {
-    refs.setCollectionNames(collection.participants, collection.participantEvents)
+  private readonly refs: Refs
+
+  constructor(private readonly firestore: Firestore) {
+    this.refs = references(firestore)
   }
 
   async store(participant: Participant, event: ParticipantEvent): Promise<void> {
     const batch = this.firestore.batch()
 
-    const [participantRef, eventRef] = this.refs.all(event.participantId.value, event.id.value)
+    const participantRef = this.refs.participant(event.participantId.value)
     batch.set(participantRef, participant.serialize())
+
+    const eventRef = this.refs.participantEvent(event.participantId.value, event.id.value)
     batch.set(eventRef, event.serialize())
 
     await batch.commit()
   }
 
   async findById(participantId: ParticipantId): Promise<Participant | undefined> {
-    const ref = this.refs.forEntity(participantId.value)
+    const ref = this.refs.participant(participantId.value)
     const snapshot = await ref.get()
     const data = snapshot.data()
 
