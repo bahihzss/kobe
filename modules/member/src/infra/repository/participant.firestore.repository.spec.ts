@@ -10,7 +10,7 @@ describe('ParticipantFirestoreRepository', () => {
 
   beforeEach(async () => {
     const testApp = await Test.createTestingModule({
-      imports: [ConfigModule.forRoot(), FirebaseModule],
+      imports: [FirebaseModule],
       providers: [ParticipantFirestoreRepository],
     }).compile()
 

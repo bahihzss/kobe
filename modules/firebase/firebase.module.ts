@@ -1,19 +1,25 @@
-import { Module } from '@nestjs/common'
+import { Module, Scope } from '@nestjs/common'
 import { App, initializeApp } from 'firebase-admin/app'
 import { Firestore, getFirestore } from 'firebase-admin/firestore'
-import { Refs } from './utils'
+import { ConfigModule } from '@nestjs/config'
 
-const app: App = initializeApp()
-const firestore: Firestore = getFirestore(app)
+let firestore: Firestore
 
 @Module({
+  imports: [ConfigModule.forRoot()],
   providers: [
     {
       provide: Firestore,
-      useValue: firestore,
+      useFactory() {
+        if (!firestore) {
+          const app: App = initializeApp()
+          firestore = getFirestore(app)
+        }
+
+        return firestore
+      },
     },
-    Refs,
   ],
-  exports: [Firestore, Refs],
+  exports: [Firestore],
 })
 export class FirebaseModule {}

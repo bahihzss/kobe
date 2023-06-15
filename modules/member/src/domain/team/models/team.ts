@@ -26,7 +26,7 @@ export class Team implements IEntity {
     return [team, event] as const
   }
   onMemberAdded(event: TeamMemberAdded) {
-    return new Team(this.id, this.name, this.members.add(event.newTeamMemberId))
+    return new Team(this.id, this.name, this.members.add(event.newMemberId))
   }
 
   equals(other: Team): boolean {

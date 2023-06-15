@@ -6,14 +6,16 @@ export class TeamMemberAdded implements IEvent {
   public readonly id = new TeamId()
   public readonly addedAt: Date = new Date()
 
-  constructor(public readonly teamId: TeamId, public readonly newTeamMemberId: ParticipantId) {}
+  constructor(public readonly teamId: TeamId, public readonly newMemberId: ParticipantId) {}
 
   serialize() {
     return {
       type: 'TeamMemberAdded' as const,
       payload: {
+        id: this.id.value,
         teamId: this.teamId.value,
-        newTeamMemberId: this.newTeamMemberId.value,
+        newMemberId: this.newMemberId.value,
+        addedAt: this.addedAt,
       },
     }
   }

@@ -1,5 +1,6 @@
 import { TeamRepository } from '@domain/team/interfaces'
 import { Team } from '@domain/team/models'
+import { DomainException } from '@kobe/common/domain'
 import { Inject, Injectable } from '@nestjs/common'
 import { Token } from '@root/token'
 
@@ -12,6 +13,11 @@ export class OpenTeamFinder {
 
   async find() {
     const allTeams = await this.teamRepository.findAll()
+
+    if (allTeams.length === 0) {
+      throw new DomainException('登録されているチームがありません')
+    }
+
     const firstOpenTeam = this.getFirstOpenTeam(allTeams)
     const openTeams = this.getAllOpenTeams(allTeams, firstOpenTeam)
 

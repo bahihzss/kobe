@@ -41,7 +41,7 @@ describe('Team', () => {
     const [addedTeam, teamMemberAddedEvent] = team.addMember(newMemberId)
 
     expect(addedTeam.serialize().members).toContain(newMemberId.value)
-    expect(teamMemberAddedEvent.serialize().payload.newTeamMemberId).toEqual(newMemberId.value)
+    expect(teamMemberAddedEvent.serialize().payload.newMemberId).toEqual(newMemberId.value)
   })
 
   test('reconstruct で DB のデータからインスタンスを再構築できる', () => {

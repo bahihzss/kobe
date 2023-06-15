@@ -12,5 +12,5 @@ export const fetchFirst = async (firestore: Firestore, collectionId: string) => 
   const query = firestore.collectionGroup(collectionId).limit(1)
   const snapshot = await query.get()
 
-  return snapshot.docs[0].data()
+  return snapshot.docs[0]?.data()
 }
