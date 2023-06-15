@@ -7,16 +7,12 @@ import { Team, TeamId } from '@domain/team/models'
 export class TeamInMemoryRepository implements TeamRepository {
   constructor(public teams: Team[] = []) {}
 
-  _register(team: Team) {
-    this.teams.push(team)
-  }
-
   async store(team: Team, teamEvent: TeamEvent) {
     this.teams.push(team)
   }
 
   async findById(teamId: TeamId) {
-    return this.teams.find((team) => team.id.equals(teamId))
+    return this.teams.find((team) => team.serialize().id === teamId.value)
   }
 
   async findLatest() {
