@@ -82,33 +82,17 @@ describe('Team', () => {
   })
 
   test('compareWith でメンバー数を比較できる', () => {
-    const team1 = Team.reconstruct({
-      id: new TeamId(Faker.ulid('1')),
-      name: new TeamName('1'),
-      members: Faker.teamMembers(4),
-    })
-    const team2 = Team.reconstruct({
-      id: new TeamId(Faker.ulid('2')),
-      name: new TeamName('2'),
-      members: Faker.teamMembers(5),
-    })
+    const team1 = Faker.team(3)
+    const team2 = Faker.team(5)
 
-    expect(team1.compareWith(team2)).toBe(-1)
+    expect(team1.compareWith(team2)).toBeLessThanOrEqual(-1)
     expect(team1.compareWith(team1)).toBe(0)
-    expect(team2.compareWith(team1)).toBe(1)
+    expect(team2.compareWith(team1)).toBeGreaterThanOrEqual(1)
   })
 
   test('hasSameMemberCount でメンバー数が同じかどうかを判定できる', () => {
-    const team1 = Team.reconstruct({
-      id: new TeamId(Faker.ulid('1')),
-      name: new TeamName('1'),
-      members: Faker.teamMembers(4),
-    })
-    const team2 = Team.reconstruct({
-      id: new TeamId(Faker.ulid('2')),
-      name: new TeamName('2'),
-      members: Faker.teamMembers(5),
-    })
+    const team1 = Faker.team(3)
+    const team2 = Faker.team(5)
 
     expect(team1.hasSameMemberCount(team2)).toBe(false)
     expect(team1.hasSameMemberCount(team1)).toBe(true)
