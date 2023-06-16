@@ -11,10 +11,6 @@ export class TeamMembers implements ICollection<ParticipantId> {
     this.validate()
   }
 
-  get count() {
-    return this.memberIds.length
-  }
-
   private validate() {
     if (this.count < TeamMembers.MIN_MEMBERS_COUNT) {
       throw new DomainException(`メンバー数は最低 ${TeamMembers.MIN_MEMBERS_COUNT} 人必要です`)
@@ -43,6 +39,10 @@ export class TeamMembers implements ICollection<ParticipantId> {
 
   hasSameCount(other: TeamMembers) {
     return this.count === other.count
+  }
+
+  private get count() {
+    return this.memberIds.length
   }
 
   private includes(participantId: ParticipantId) {

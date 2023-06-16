@@ -67,13 +67,13 @@ describe('TeamMembers', () => {
     expect(act).toThrow(`${nonMemberId.value} は在籍していません`)
   })
 
-  test('メンバー数で比較できる：数が同じ場合は 0 を返す', () => {
+  test('メンバー数で比較できる', () => {
     const teamMembers = new TeamMembers(Faker.participantIdArray(3))
-    const otherTeamMembers = new TeamMembers(Faker.participantIdArray(3))
+    const otherTeamMembers = new TeamMembers(Faker.participantIdArray(4))
 
-    const actual = teamMembers.compareWith(otherTeamMembers)
-
-    expect(actual).toBe(0)
+    expect(teamMembers.compareWith(otherTeamMembers)).toBeLessThanOrEqual(-1)
+    expect(teamMembers.compareWith(teamMembers)).toBe(0)
+    expect(otherTeamMembers.compareWith(teamMembers)).toBeGreaterThanOrEqual(1)
   })
 
   test('メンバー数で比較できる：自分の方が多い場合は正の数を返す', () => {

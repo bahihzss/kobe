@@ -73,4 +73,21 @@ describe('PairMembers', () => {
     expect(act).toThrow(DomainException)
     expect(act).toThrow(`${nonMemberId.value} は在籍していません`)
   })
+
+  test('メンバー数を比較できる', () => {
+    const pairMembers = new PairMembers(Faker.participantIdArray(2))
+    const otherPairMembers = new PairMembers(Faker.participantIdArray(3))
+
+    expect(pairMembers.compareWith(otherPairMembers)).toBeLessThanOrEqual(-1)
+    expect(pairMembers.compareWith(pairMembers)).toBe(0)
+    expect(otherPairMembers.compareWith(pairMembers)).toBeGreaterThanOrEqual(1)
+  })
+
+  test('メンバー数が同じかどうかを判定できる', () => {
+    const pairMembers = new PairMembers(Faker.participantIdArray(2))
+    const otherPairMembers = new PairMembers(Faker.participantIdArray(3))
+
+    expect(pairMembers.hasSameCount(pairMembers)).toBe(true)
+    expect(pairMembers.hasSameCount(otherPairMembers)).toBe(false)
+  })
 })

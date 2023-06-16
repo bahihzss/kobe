@@ -38,6 +38,14 @@ export class PairMembers implements ICollection<ParticipantId> {
     return new PairMembers(this.memberIds.filter((id) => id.value !== memberId.value))
   }
 
+  compareWith(other: PairMembers) {
+    return this.count - other.count
+  }
+
+  hasSameCount(other: PairMembers) {
+    return this.count === other.count
+  }
+
   private includes(memberId: ParticipantId) {
     return this.memberIds.some((id) => id.value === memberId.value)
   }
