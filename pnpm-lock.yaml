@@ -112,6 +112,49 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
 
+  modules/challenge:
+    dependencies:
+      '@nestjs/common':
+        specifier: ^9.4.2
+        version: 9.4.2(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
+      '@nestjs/core':
+        specifier: ^9.4.2
+        version: 9.4.2(@nestjs/common@9.4.2)(@nestjs/platform-express@9.0.0)(reflect-metadata@0.1.13)(rxjs@7.2.0)
+    devDependencies:
+      '@nestjs/testing':
+        specifier: ^9.4.2
+        version: 9.4.2(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)(@nestjs/platform-express@9.0.0)
+      '@types/express':
+        specifier: ^4.17.13
+        version: 4.17.13
+      '@types/jest':
+        specifier: 29.5.1
+        version: 29.5.1
+      '@types/node':
+        specifier: 20.2.5
+        version: 20.2.5
+      class-transformer:
+        specifier: ^0.5.1
+        version: 0.5.1
+      class-validator:
+        specifier: ^0.14.0
+        version: 0.14.0
+      eslint:
+        specifier: ^8.41.0
+        version: 8.41.0
+      eslint-config-kobe:
+        specifier: workspace:^
+        version: link:../../packages/eslint-config-kobe
+      jest:
+        specifier: 29.5.0
+        version: 29.5.0(@types/node@20.2.5)
+      tsc-alias:
+        specifier: ^1.8.6
+        version: 1.8.6
+      typescript:
+        specifier: ^5.0.0
+        version: 5.0.2
+
   modules/firebase:
     dependencies:
       '@nestjs/common':
@@ -1277,6 +1320,31 @@ packages:
       rxjs: 7.2.0
       tslib: 2.5.2
       uid: 2.0.2
+
+  /@nestjs/common@9.4.2(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1):
+    resolution: {integrity: sha512-sea+qZnbD5x3YWZDVQT/wbVJ2NiABaM1tyZTLuW9hpkcM2KFA96xKtK3VaCxyz49zoXIgSOefsyK7HuUMCe27Q==}
+    peerDependencies:
+      cache-manager: <=5
+      class-transformer: '*'
+      class-validator: '*'
+      reflect-metadata: ^0.1.12
+      rxjs: ^7.1.0
+    peerDependenciesMeta:
+      cache-manager:
+        optional: true
+      class-transformer:
+        optional: true
+      class-validator:
+        optional: true
+    dependencies:
+      class-transformer: 0.5.1
+      class-validator: 0.14.0
+      iterare: 1.2.1
+      reflect-metadata: 0.1.13
+      rxjs: 7.8.1
+      tslib: 2.5.2
+      uid: 2.0.2
+    dev: false
 
   /@nestjs/config@2.3.2(@nestjs/common@9.4.2)(reflect-metadata@0.1.13)(rxjs@7.2.0):
     resolution: {integrity: sha512-VtGV8PBpxzMzz68kdxTWqPm9v7SYCSZXQ0tC72AMNnjdmU+CVjUSLpEpdnm0XcWHxE1nV6wSI3HZxsATIV4ZxA==}
