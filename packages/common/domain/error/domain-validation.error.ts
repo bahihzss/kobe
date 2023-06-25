@@ -1,4 +1,4 @@
-import { DomainException } from './domain-exception'
+import { DomainException } from './domain-exception.error'
 
 export class DomainValidationError extends DomainException {
   constructor(message) {

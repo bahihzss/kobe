@@ -14,12 +14,13 @@ model Participant {
 }
 
 model Progress {
-  id          String      @id
   assignee    Participant @relation(fields: [assigneeId], references: [id])
   assigneeId  String
   challenge   Challenge   @relation(fields: [challengeId], references: [id])
   challengeId String
   status      String
+
+  @@id([assigneeId, challengeId])
 }
 
 model Challenge {

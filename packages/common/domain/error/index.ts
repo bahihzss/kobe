@@ -1,2 +1,2 @@
-export * from './domain-exception'
+export * from './domain-exception.error'
 export * from './domain-validation.error'

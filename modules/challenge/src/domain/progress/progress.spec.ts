@@ -15,7 +15,6 @@ describe('Progress', () => {
 
     const serialized = newProgress.serialize()
     expect(serialized).toEqual({
-      id: expect.stringMatching(patterns.ulid),
       status: 'TODO',
       assigneeId: '01H3S57SMZMS646Z273EQV6D2T',
       challengeId: '01H3S58CHCG3P49SZ19N8XJQ92',
@@ -24,7 +23,6 @@ describe('Progress', () => {
 
   test('永続化されたデータからインスタンスを再構築できる', () => {
     const progress = Progress.reconstruct({
-      id: new ProgressId('01H3S67JT5K4QXFWEA1297JX6M'),
       status: new ProgressStatus('TODO'),
       assigneeId: new ParticipantId('01H3S57SMZMS646Z273EQV6D2T'),
       challengeId: new ChallengeId('01H3S58CHCG3P49SZ19N8XJQ92'),
@@ -32,7 +30,6 @@ describe('Progress', () => {
 
     const serialized = progress.serialize()
     expect(serialized).toEqual({
-      id: '01H3S67JT5K4QXFWEA1297JX6M',
       status: 'TODO',
       assigneeId: '01H3S57SMZMS646Z273EQV6D2T',
       challengeId: '01H3S58CHCG3P49SZ19N8XJQ92',

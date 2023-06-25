@@ -7,14 +7,17 @@ import { IEntity } from '@kobe/common/domain'
 
 export class Progress implements IEntity {
   private constructor(
-    private readonly id: ProgressId,
     private readonly status: ProgressStatus,
     private readonly assigneeId: ParticipantId,
     private readonly challengeId: ChallengeId,
   ) {}
 
-  static assign(param: { challengeId: ChallengeId; assigneeId: ParticipantId }) {
-    return new Progress(new ProgressId(), ProgressStatus.todo, param.assigneeId, param.challengeId)
+  get id() {
+    return new ProgressId(this.challengeId, this.assigneeId)
+  }
+
+  static assign(params: { challengeId: ChallengeId; assigneeId: ParticipantId }) {
+    return new Progress(ProgressStatus.todo, params.assigneeId, params.challengeId)
   }
 
   start(params: { operatorId: ParticipantId }) {
@@ -22,7 +25,7 @@ export class Progress implements IEntity {
       throw new ProgressInvalidOperatorException()
     }
 
-    return new Progress(this.id, this.status.start(), this.assigneeId, this.challengeId)
+    return new Progress(this.status.start(), this.assigneeId, this.challengeId)
   }
 
   requestReview(params: { operatorId: ParticipantId }) {
@@ -30,7 +33,7 @@ export class Progress implements IEntity {
       throw new ProgressInvalidOperatorException()
     }
 
-    return new Progress(this.id, this.status.requestReview(), this.assigneeId, this.challengeId)
+    return new Progress(this.status.requestReview(), this.assigneeId, this.challengeId)
   }
 
   complete(params: { operatorId: ParticipantId }) {
@@ -38,21 +41,15 @@ export class Progress implements IEntity {
       throw new ProgressInvalidOperatorException()
     }
 
-    return new Progress(this.id, this.status.complete(), this.assigneeId, this.challengeId)
+    return new Progress(this.status.complete(), this.assigneeId, this.challengeId)
   }
 
-  static reconstruct(param: {
-    challengeId: ChallengeId
-    id: ProgressId
-    assigneeId: ParticipantId
-    status: ProgressStatus
-  }) {
-    return new Progress(param.id, param.status, param.assigneeId, param.challengeId)
+  static reconstruct(params: { challengeId: ChallengeId; assigneeId: ParticipantId; status: ProgressStatus }) {
+    return new Progress(params.status, params.assigneeId, params.challengeId)
   }
 
   serialize() {
     return {
-      id: this.id.value,
       status: this.status.value,
       assigneeId: this.assigneeId.value,
       challengeId: this.challengeId.value,

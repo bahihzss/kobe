@@ -4,11 +4,14 @@ import { DomainValidationError, IValue } from '@kobe/common/domain'
 const progressStatusValue = ['TODO', 'IN_PROGRESS', 'IN_REVIEW', 'DONE'] as const
 type ProgressStatusValue = typeof progressStatusValue[number]
 
-export class ProgressStatus implements IValue<string> {
+export class ProgressStatus implements IValue<ProgressStatusValue> {
   type = 'ProgressStatus' as const
 
-  constructor(readonly value: ProgressStatusValue) {
+  readonly value: ProgressStatusValue
+
+  constructor(value: string) {
     this.validate(value)
+    this.value = value as ProgressStatusValue
   }
 
   static get todo() {
