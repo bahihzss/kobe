@@ -114,6 +114,12 @@ importers:
 
   modules/challenge:
     dependencies:
+      '@kobe/common':
+        specifier: workspace:^
+        version: link:../../packages/common
+      '@kobe/patterns':
+        specifier: workspace:^
+        version: link:../../packages/patterns
       '@nestjs/common':
         specifier: ^9.4.2
         version: 9.4.2(class-transformer@0.5.1)(class-validator@0.14.0)(reflect-metadata@0.1.13)(rxjs@7.8.1)
@@ -124,6 +130,12 @@ importers:
         specifier: ^4.16.1
         version: 4.16.1(prisma@4.16.1)
     devDependencies:
+      '@kobe/jest-config':
+        specifier: workspace:^
+        version: link:../../packages/jest-config
+      '@kobe/tsconfig':
+        specifier: workspace:^
+        version: link:../../packages/tsconfig
       '@nestjs/testing':
         specifier: ^9.4.2
         version: 9.4.2(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)

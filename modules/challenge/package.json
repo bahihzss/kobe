@@ -6,11 +6,15 @@
     "build": "rm -rf dist && tsc -p tsconfig.build.json && tsc-alias"
   },
   "dependencies": {
+    "@kobe/common": "workspace:^",
+    "@kobe/patterns": "workspace:^",
     "@nestjs/common": "^9.4.2",
     "@nestjs/core": "^9.4.2",
     "@prisma/client": "^4.16.1"
   },
   "devDependencies": {
+    "@kobe/jest-config": "workspace:^",
+    "@kobe/tsconfig": "workspace:^",
     "@nestjs/testing": "^9.4.2",
     "@types/express": "^4.17.13",
     "@types/jest": "29.5.1",
