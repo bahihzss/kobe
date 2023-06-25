@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Participant {
+  id       String     @id
+  name     String
+  Progress Progress[]
+}
+
+model Progress {
+  id          String      @id
+  assignee    Participant @relation(fields: [assigneeId], references: [id])
+  assigneeId  String
+  challenge   Challenge   @relation(fields: [challengeId], references: [id])
+  challengeId String
+  status      String
+}
+
+model Challenge {
+  id          String     @id
+  title       String
+  description String
+  Progress    Progress[]
+}
