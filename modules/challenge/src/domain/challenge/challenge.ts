@@ -4,7 +4,7 @@ import { ChallengeTitle } from '@domain/challenge/challenge-title'
 import { IEntity } from '@kobe/common/domain'
 
 export class Challenge implements IEntity {
-  constructor(
+  private constructor(
     private readonly id: ChallengeId,
     private readonly title: ChallengeTitle,
     private readonly description: ChallengeDescription,
