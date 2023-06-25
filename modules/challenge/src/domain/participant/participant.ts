@@ -9,18 +9,14 @@ export class Participant implements IEntity {
     return new Participant(new ParticipantId(), params.name)
   }
 
+  static reconstruct(param: { name: ParticipantName; id: ParticipantId }) {
+    return new Participant(param.id, param.name)
+  }
+
   serialize() {
     return {
       id: this.id.value,
       name: this.name.value,
     }
-  }
-
-  equals(other: Participant): boolean {
-    return this.id.equals(other.id)
-  }
-
-  static reconstruct(param: { name: ParticipantName; id: ParticipantId }) {
-    return new Participant(param.id, param.name)
   }
 }

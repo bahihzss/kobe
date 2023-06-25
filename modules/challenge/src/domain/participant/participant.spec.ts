@@ -26,30 +26,4 @@ describe('Participant', () => {
       name: 'Matsubara Shunya',
     })
   })
-
-  test('等価性を判定できる：等しい場合', () => {
-    const participant1 = Participant.reconstruct({
-      id: new ParticipantId('01H3S0M18M1T58QN07ZKPTQC54'),
-      name: new ParticipantName('Matsubara Shunya'),
-    })
-    const otherParticipant1 = Participant.reconstruct({
-      id: new ParticipantId('01H3S0M18M1T58QN07ZKPTQC54'),
-      name: new ParticipantName('Matsubara Shunya'),
-    })
-
-    expect(participant1.equals(otherParticipant1)).toBe(true)
-  })
-
-  test('等価性を判定できる：等しくない場合', () => {
-    const participant1 = Participant.reconstruct({
-      id: new ParticipantId('01H3S0M18M1T58QN07ZKPTQC54'),
-      name: new ParticipantName('Matsubara Shunya'),
-    })
-    const participant2 = Participant.reconstruct({
-      id: new ParticipantId('01H3S0VYYE1VERDJK4SDZX53DZ'),
-      name: new ParticipantName('Awata Kyosuke'),
-    })
-
-    expect(participant1.equals(participant2)).toBe(false)
-  })
 })
