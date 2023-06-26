@@ -1,12 +1,12 @@
-import { StartChallengeUseCase } from '@app/usecase/start-challenge.use-case'
+import { CompleteChallengeUseCase } from '@app/use-case'
 import { PrismaSeeder } from '@infra/prisma.seeder'
 import { PrismaService } from '@infra/prisma.service'
-import { ProgressPrismaRepository } from '@infra/progress.prisma.repository'
+import { ProgressPrismaRepository } from '@infra/repositories'
 import { Test, TestingModule } from '@nestjs/testing'
 import { Token } from '@root/token'
 
-describe('StartChallengeUseCase', () => {
-  let startChallengeUseCase: StartChallengeUseCase
+describe('CompleteChallengeUseCase', () => {
+  let completeChallengeUseCase: CompleteChallengeUseCase
   let prisma: PrismaService
 
   beforeEach(async () => {
@@ -18,21 +18,21 @@ describe('StartChallengeUseCase', () => {
           provide: Token.ProgressRepository,
           useClass: ProgressPrismaRepository,
         },
-        StartChallengeUseCase,
+        CompleteChallengeUseCase,
       ],
     }).compile()
 
     await testApp.get(PrismaSeeder).seed()
 
-    startChallengeUseCase = testApp.get(StartChallengeUseCase)
+    completeChallengeUseCase = testApp.get(CompleteChallengeUseCase)
     prisma = testApp.get(PrismaService)
   })
 
-  test('課題と参加者を指定すると、課題のステータスが進行中になる', async () => {
+  test('課題と参加者を指定すると、課題のステータスが完了になる', async () => {
     const challengeId = PrismaSeeder.data.challenge.id
     const assigneeId = PrismaSeeder.data.participant.id
 
-    await startChallengeUseCase.execute({
+    await completeChallengeUseCase.execute({
       challengeId,
       assigneeId,
     })
@@ -46,6 +46,6 @@ describe('StartChallengeUseCase', () => {
       },
     })
 
-    expect(progress?.status).toBe('IN_PROGRESS')
+    expect(progress?.status).toBe('DONE')
   })
 })

@@ -1,8 +1,8 @@
 import { ChallengeId } from '@domain/challenge'
 import { ProgressStatus } from '@domain/progress'
-import { ListProgressesPrismaQueryService } from '@infra/list-progresses.prisma.query-service'
 import { PrismaSeeder } from '@infra/prisma.seeder'
 import { PrismaService } from '@infra/prisma.service'
+import { ListProgressesPrismaQueryService } from '@infra/query-services/list-progresses.prisma.query-service'
 import { Test } from '@nestjs/testing'
 import { Token } from '@root/token'
 

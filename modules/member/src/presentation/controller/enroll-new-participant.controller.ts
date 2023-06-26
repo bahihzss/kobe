@@ -7,7 +7,7 @@ export class EnrollNewParticipantRequest {
   name!: string
 }
 
-@Controller('/participant')
+@Controller('/participants')
 export class EnrollNewParticipantController {
   constructor(private readonly enrollNewParticipantUseCase: EnrollNewParticipantUseCase) {}
 

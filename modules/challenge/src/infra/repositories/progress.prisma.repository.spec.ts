@@ -3,7 +3,7 @@ import { ParticipantId } from '@domain/participant'
 import { Progress } from '@domain/progress'
 import { PrismaSeeder } from '@infra/prisma.seeder'
 import { PrismaService } from '@infra/prisma.service'
-import { ProgressPrismaRepository } from '@infra/progress.prisma.repository'
+import { ProgressPrismaRepository } from '@infra/repositories'
 import { Test } from '@nestjs/testing'
 
 describe('ProgressPrismaRepository', () => {

@@ -1,8 +1,4 @@
-import {
-  ListedProgressesDto,
-  ListProgressesQuery,
-  ListProgressesQueryService,
-} from '@app/query-service/list-progresses.query-service'
+import { ListedProgressesDto, ListProgressesQuery, ListProgressesQueryService } from '@app/query-service'
 import { PrismaService } from '@infra/prisma.service'
 import { Injectable } from '@nestjs/common'
 

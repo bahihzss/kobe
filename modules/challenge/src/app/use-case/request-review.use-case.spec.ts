@@ -1,7 +1,7 @@
-import { RequestReviewUseCase } from '@app/usecase/request-review.use-case'
+import { RequestReviewUseCase } from '@app/use-case'
 import { PrismaSeeder } from '@infra/prisma.seeder'
 import { PrismaService } from '@infra/prisma.service'
-import { ProgressPrismaRepository } from '@infra/progress.prisma.repository'
+import { ProgressPrismaRepository } from '@infra/repositories'
 import { Test, TestingModule } from '@nestjs/testing'
 import { Token } from '@root/token'
 

@@ -1,4 +1,4 @@
-import { ListProgressesQueryService } from '@app/query-service/list-progresses.query-service'
+import { ListProgressesQueryService } from '@app/query-service'
 import { ChallengeId } from '@domain/challenge'
 import { ProgressStatus } from '@domain/progress'
 import { Inject, Injectable } from '@nestjs/common'

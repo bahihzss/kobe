@@ -129,6 +129,15 @@ importers:
       '@prisma/client':
         specifier: ^4.16.1
         version: 4.16.1(prisma@4.16.1)
+      '@yuzu441/is-ulid':
+        specifier: ^1.0.0
+        version: 1.0.0
+      class-transformer:
+        specifier: ^0.5.1
+        version: 0.5.1
+      class-validator:
+        specifier: ^0.14.0
+        version: 0.14.0
     devDependencies:
       '@kobe/jest-config':
         specifier: workspace:^
@@ -148,12 +157,6 @@ importers:
       '@types/node':
         specifier: 20.2.5
         version: 20.2.5
-      class-transformer:
-        specifier: ^0.5.1
-        version: 0.5.1
-      class-validator:
-        specifier: ^0.14.0
-        version: 0.14.0
       eslint:
         specifier: ^8.43.0
         version: 8.43.0
@@ -212,6 +215,12 @@ importers:
       '@nestjs/platform-express':
         specifier: ^9.0.0
         version: 9.0.0(@nestjs/common@9.4.2)(@nestjs/core@9.4.2)
+      class-transformer:
+        specifier: ^0.5.1
+        version: 0.5.1
+      class-validator:
+        specifier: ^0.14.0
+        version: 0.14.0
       firebase-admin:
         specifier: ^11.8.0
         version: 11.8.0
@@ -246,12 +255,6 @@ importers:
       '@types/node':
         specifier: 20.2.5
         version: 20.2.5
-      class-transformer:
-        specifier: ^0.5.1
-        version: 0.5.1
-      class-validator:
-        specifier: ^0.14.0
-        version: 0.14.0
       eslint:
         specifier: ^8.43.0
         version: 8.43.0
@@ -2136,6 +2139,12 @@ packages:
   /@xtuc/long@4.2.2:
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
     dev: true
+
+  /@yuzu441/is-ulid@1.0.0:
+    resolution: {integrity: sha512-4u7cuyFNXmQ6jCNGFEW9QTw+ZwMYUtBxCsBrxf6H6HL4UGRIJWADB1tBh7ioCuFraSqsTxQQ/Wqgc41/Edef7w==}
+    dependencies:
+      class-validator: 0.14.0
+    dev: false
 
   /abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
