@@ -11,15 +11,15 @@ export class AddPairMemberCommand {
 export class AddPairMemberCommandHandler implements ICommandHandler<AddPairMemberCommand> {
   constructor(
     private readonly pairRepository: PairRepository,
-    private readonly openPairFinder: OpenPairFinder,
+    // private readonly openPairFinder: OpenPairFinder,
     private readonly eventBus: EventBus,
   ) {}
 
   async execute(command: AddPairMemberCommand) {
-    const openPair = this.openPairFinder.find(command.teamId)
-    const [addedPair, pairMemberAdded] = openPair.addMember(command.newMemberId)
-
-    await this.pairRepository.store(addedPair, pairMemberAdded)
-    this.eventBus.publish(pairMemberAdded)
+    // const openPair = this.openPairFinder.find(command.teamId)
+    // const [addedPair, pairMemberAdded] = openPair.addMember(command.newMemberId)
+    //
+    // await this.pairRepository.store(addedPair, pairMemberAdded)
+    // this.eventBus.publish(pairMemberAdded)
   }
 }
