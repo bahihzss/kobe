@@ -1,20 +1,28 @@
 import { ParticipantEnrolled } from '@domain/participant/events'
-import { ParticipantId, ParticipantName } from '@domain/participant/models'
+import { ParticipantEmail, ParticipantId, ParticipantName } from '@domain/participant/models'
+import { ParticipantStatus } from '@domain/participant/models/participant-status'
 import { IEntity } from '@kobe/common/domain'
 
 export class Participant implements IEntity {
-  private constructor(private readonly id: ParticipantId, private readonly name: ParticipantName) {}
+  private constructor(
+    private readonly id: ParticipantId,
+    private readonly name: ParticipantName,
+    private readonly email: ParticipantEmail,
+    private readonly status: ParticipantStatus,
+  ) {}
 
   static enroll(args: { name: ParticipantName }) {
-    const id = new ParticipantId()
-
-    const participantEnrolledEvent = new ParticipantEnrolled(id, args.name)
+    const participantEnrolledEvent = new ParticipantEnrolled(
+      new ParticipantId(),
+      args.name,
+      new ParticipantEmail('info@example.com'),
+    )
     const participant = this.prototype.onEnrolled(participantEnrolledEvent)
 
     return [participant, participantEnrolledEvent] as const
   }
   onEnrolled(event: ParticipantEnrolled) {
-    return new Participant(event.participantId, event.name)
+    return new Participant(event.participantId, event.name, event.email, ParticipantStatus.enrolled)
   }
 
   equals(other: Participant): boolean {
@@ -22,7 +30,7 @@ export class Participant implements IEntity {
   }
 
   static reconstruct(args: { id: ParticipantId; name: ParticipantName }) {
-    return new Participant(args.id, args.name)
+    return new Participant(args.id, args.name, new ParticipantEmail('info@example.com'), ParticipantStatus.enrolled)
   }
 
   serialize() {
