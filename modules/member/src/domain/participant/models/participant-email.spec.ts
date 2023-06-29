@@ -3,9 +3,7 @@ import { DomainValidationError } from '@kobe/common/domain'
 
 describe('ParticipantEmail', () => {
   test('正しいメールアドレスを扱える', () => {
-    expect(() => {
-      new ParticipantEmail('info@example.com')
-    }).not.toThrow()
+    expect(new ParticipantEmail('info@example.com').value).toBe('info@example.com')
   })
 
   test('正しくないメールアドレスを扱うとエラーになる', () => {
