@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 import { ParticipantEvent } from '@domain/participant/events'
 import { ParticipantRepository } from '@domain/participant/interfaces'
-import { Participant, ParticipantId } from '@domain/participant/models'
+import { Participant, ParticipantEmail, ParticipantId } from '@domain/participant/models'
 
 type ParticipantMeta = {
   participant: Participant
@@ -55,5 +55,10 @@ export class ParticipantInMemoryRepository implements ParticipantRepository {
 
   async findById(participantId: ParticipantId) {
     return this.participantMap[participantId.value]?.participant
+  }
+
+  async findByEmail(email: ParticipantEmail) {
+    return Object.values(this.participantMap).find(({ participant }) => participant.serialize().email === email.value)
+      ?.participant
   }
 }

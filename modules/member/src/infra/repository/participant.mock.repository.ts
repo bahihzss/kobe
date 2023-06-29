@@ -5,4 +5,5 @@ import { Injectable } from '@nestjs/common'
 export class ParticipantMockRepository implements ParticipantRepository {
   store = jest.fn()
   findById = jest.fn()
+  findByEmail = jest.fn()
 }

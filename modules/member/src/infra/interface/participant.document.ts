@@ -19,7 +19,6 @@ export interface ParticipantEnrolledDocument<S extends Stack = 'read'> {
     participantId: string
     name: string
     email: string
-    status: ParticipantStatus
     enrolledAt: Timestamp<S>
   }
 }

@@ -44,4 +44,23 @@ export class ParticipantFirestoreRepository implements ParticipantRepository {
       status: new ParticipantStatus(data.status),
     })
   }
+
+  async findByEmail(email: ParticipantEmail): Promise<Participant | undefined> {
+    const snapshot = await this.firestore
+      .collection(collection.participants)
+      .where('email', '==', email.value)
+      .limit(1)
+      .get()
+
+    const data = snapshot.docs[0]?.data()
+
+    return data
+      ? Participant.reconstruct({
+          id: new ParticipantId(data.id),
+          name: new ParticipantName(data.name),
+          email: new ParticipantEmail(data.email),
+          status: new ParticipantStatus(data.status),
+        })
+      : undefined
+  }
 }
