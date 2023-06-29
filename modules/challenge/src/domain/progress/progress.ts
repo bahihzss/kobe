@@ -7,45 +7,40 @@ import { IEntity } from '@kobe/common/domain'
 
 export class Progress implements IEntity {
   private constructor(
+    private readonly id: ProgressId,
     private readonly status: ProgressStatus,
     private readonly assigneeId: ParticipantId,
     private readonly challengeId: ChallengeId,
   ) {}
 
-  get id() {
-    return new ProgressId(this.challengeId, this.assigneeId)
-  }
-
   static assign(params: { challengeId: ChallengeId; assigneeId: ParticipantId }) {
-    return new Progress(ProgressStatus.todo, params.assigneeId, params.challengeId)
+    const id = ProgressId.compositeFrom(params.challengeId, params.assigneeId)
+    return new Progress(id, ProgressStatus.todo, params.assigneeId, params.challengeId)
   }
 
   start(params: { operatorId: ParticipantId }) {
-    if (!this.assigneeId.equals(params.operatorId)) {
-      throw new ProgressInvalidOperatorException()
-    }
-
-    return new Progress(this.status.start(), this.assigneeId, this.challengeId)
+    return this.changeStatus(params.operatorId, this.status.start())
   }
 
   requestReview(params: { operatorId: ParticipantId }) {
-    if (!this.assigneeId.equals(params.operatorId)) {
-      throw new ProgressInvalidOperatorException()
-    }
-
-    return new Progress(this.status.requestReview(), this.assigneeId, this.challengeId)
+    return this.changeStatus(params.operatorId, this.status.requestReview())
   }
 
   complete(params: { operatorId: ParticipantId }) {
-    if (!this.assigneeId.equals(params.operatorId)) {
+    return this.changeStatus(params.operatorId, this.status.complete())
+  }
+
+  private changeStatus(operatorId: ParticipantId, toStatus: ProgressStatus) {
+    if (!this.assigneeId.equals(operatorId)) {
       throw new ProgressInvalidOperatorException()
     }
 
-    return new Progress(this.status.complete(), this.assigneeId, this.challengeId)
+    return new Progress(this.id, toStatus, this.assigneeId, this.challengeId)
   }
 
   static reconstruct(params: { challengeId: ChallengeId; assigneeId: ParticipantId; status: ProgressStatus }) {
-    return new Progress(params.status, params.assigneeId, params.challengeId)
+    const id = ProgressId.compositeFrom(params.challengeId, params.assigneeId)
+    return new Progress(id, params.status, params.assigneeId, params.challengeId)
   }
 
   serialize() {

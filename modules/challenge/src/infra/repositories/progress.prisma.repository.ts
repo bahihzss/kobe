@@ -1,6 +1,7 @@
 import { ChallengeId } from '@domain/challenge'
 import { ParticipantId } from '@domain/participant'
 import { Progress, ProgressRepository, ProgressStatus } from '@domain/progress'
+import { ProgressId } from '@domain/progress/progress-id'
 import { PrismaService } from '@infra/prisma.service'
 import { Injectable } from '@nestjs/common'
 
@@ -25,6 +26,25 @@ export class ProgressPrismaRepository implements ProgressRepository {
         ...serialized,
       },
     })
+  }
+
+  async findById(id: ProgressId) {
+    const rawProgress = await this.prisma.progress.findUnique({
+      where: {
+        assigneeId_challengeId: {
+          assigneeId: id.assigneeId.value,
+          challengeId: id.challengeId.value,
+        },
+      },
+    })
+
+    return rawProgress
+      ? Progress.reconstruct({
+          assigneeId: new ParticipantId(rawProgress.assigneeId),
+          challengeId: new ChallengeId(rawProgress.challengeId),
+          status: new ProgressStatus(rawProgress.status),
+        })
+      : undefined
   }
 
   async findByChallengeAndAssignee(params: { challengeId: ChallengeId; assigneeId: ParticipantId }) {

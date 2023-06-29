@@ -5,10 +5,18 @@ import { IValue } from '@kobe/common/domain'
 export class ProgressId implements IValue<string> {
   type = 'ProgressId' as const
 
-  readonly value: string
+  constructor(public readonly value: string) {}
 
-  constructor(challengeId: ChallengeId, assigneeId: ParticipantId) {
-    this.value = `${challengeId.value}-${assigneeId.value}`
+  static compositeFrom(challengeId: ChallengeId, assigneeId: ParticipantId) {
+    return new ProgressId(`${challengeId.value}-${assigneeId.value}`)
+  }
+
+  get challengeId() {
+    return new ChallengeId(this.value.split('-')[0])
+  }
+
+  get assigneeId() {
+    return new ParticipantId(this.value.split('-')[1])
   }
 
   equals(other: ProgressId) {
