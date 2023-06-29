@@ -19,6 +19,7 @@ export class ParticipantEnrolled implements IEvent {
         id: this.id.value,
         participantId: this.participantId.value,
         name: this.name.value,
+        email: this.email.value,
         enrolledAt: this.enrolledAt,
       },
     }

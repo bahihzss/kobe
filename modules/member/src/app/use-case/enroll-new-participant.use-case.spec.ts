@@ -38,17 +38,19 @@ describe('EnrollNewParticipantUseCase', () => {
   })
 
   test('execute に名前を渡すと /participants に参加者が追加される', async () => {
-    await useCase.execute({ name: 'Yuto Kawamoto' })
+    await useCase.execute({ name: 'Yuto Kawamoto', email: 'kawamoto@example.com' })
 
     const participantDoc = await fetchFirst(firestore, collection.participants)
     expect(participantDoc).toEqual({
       id: expect.stringMatching(patterns.ulid),
       name: 'Yuto Kawamoto',
+      email: 'kawamoto@example.com',
+      status: '在籍中',
     })
   })
 
   test('execute に名前を渡すと /participants/{id}/events にイベントが記録される', async () => {
-    await useCase.execute({ name: 'Yuto Kawamoto' })
+    await useCase.execute({ name: 'Yuto Kawamoto', email: 'kawamoto@example.com' })
 
     const eventDoc = await fetchFirst(firestore, collection.participantEvents)
     expect(eventDoc).toEqual({
@@ -57,6 +59,7 @@ describe('EnrollNewParticipantUseCase', () => {
         id: expect.stringMatching(patterns.ulid),
         participantId: expect.stringMatching(patterns.ulid),
         name: 'Yuto Kawamoto',
+        email: 'kawamoto@example.com',
         enrolledAt: expect.any(Timestamp),
       },
     })

@@ -1,6 +1,7 @@
 import { ParticipantEvent } from '@domain/participant/events'
 import { ParticipantRepository } from '@domain/participant/interfaces'
-import { Participant, ParticipantId, ParticipantName } from '@domain/participant/models'
+import { Participant, ParticipantEmail, ParticipantId, ParticipantName } from '@domain/participant/models'
+import { ParticipantStatus } from '@domain/participant/models/participant-status'
 import { collection } from '@infra/collection'
 import { ParticipantDocument, ParticipantEventDocument } from '@infra/interface/participant.document'
 import { references, Refs } from '@infra/refs'
@@ -39,6 +40,8 @@ export class ParticipantFirestoreRepository implements ParticipantRepository {
     return Participant.reconstruct({
       id: new ParticipantId(data.id),
       name: new ParticipantName(data.name),
+      email: new ParticipantEmail(data.email),
+      status: new ParticipantStatus(data.status),
     })
   }
 }

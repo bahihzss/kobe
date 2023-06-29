@@ -11,12 +11,8 @@ export class Participant implements IEntity {
     private readonly status: ParticipantStatus,
   ) {}
 
-  static enroll(args: { name: ParticipantName }) {
-    const participantEnrolledEvent = new ParticipantEnrolled(
-      new ParticipantId(),
-      args.name,
-      new ParticipantEmail('info@example.com'),
-    )
+  static enroll(args: { name: ParticipantName; email: ParticipantEmail }) {
+    const participantEnrolledEvent = new ParticipantEnrolled(new ParticipantId(), args.name, args.email)
     const participant = this.prototype.onEnrolled(participantEnrolledEvent)
 
     return [participant, participantEnrolledEvent] as const
@@ -29,14 +25,21 @@ export class Participant implements IEntity {
     return this.id.equals(other.id)
   }
 
-  static reconstruct(args: { id: ParticipantId; name: ParticipantName }) {
-    return new Participant(args.id, args.name, new ParticipantEmail('info@example.com'), ParticipantStatus.enrolled)
+  static reconstruct(args: {
+    id: ParticipantId
+    name: ParticipantName
+    email: ParticipantEmail
+    status: ParticipantStatus
+  }) {
+    return new Participant(args.id, args.name, args.email, args.status)
   }
 
   serialize() {
     return {
       id: this.id.value,
       name: this.name.value,
+      email: this.email.value,
+      status: this.status.value,
     }
   }
 }

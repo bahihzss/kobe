@@ -1,7 +1,7 @@
 import { EnrollNewParticipantUseCase } from '@app/use-case'
 import { EnrollNewParticipantCommand, EnrollNewParticipantCommandHandler } from '@domain/participant/commands'
 import { ParticipantEnrolled } from '@domain/participant/events'
-import { ParticipantName } from '@domain/participant/models'
+import { ParticipantEmail, ParticipantName } from '@domain/participant/models'
 import { EnrollmentSagas } from '@domain/sagas'
 import { AddMemberCommandHandler } from '@domain/team/commands'
 import { TeamMemberAdded } from '@domain/team/events'
@@ -54,7 +54,10 @@ describe('EnrollmentSagas', () => {
     const participantEnrolledPromise = participantRepository.waitNext<ParticipantEnrolled>('ParticipantEnrolled')
     const memberAddedPromise = teamRepository.waitNext<TeamMemberAdded>('TeamMemberAdded')
 
-    const enrollNewParticipantCommand = new EnrollNewParticipantCommand(new ParticipantName('Yuto Kawamoto'))
+    const enrollNewParticipantCommand = new EnrollNewParticipantCommand(
+      new ParticipantName('Yuto Kawamoto'),
+      new ParticipantEmail('kawamoto@example.com'),
+    )
     await commandBus.execute(enrollNewParticipantCommand)
 
     const participantAdded = await participantEnrolledPromise

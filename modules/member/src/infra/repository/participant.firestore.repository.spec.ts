@@ -1,4 +1,4 @@
-import { Participant, ParticipantId, ParticipantName } from '@domain/participant/models'
+import { Participant, ParticipantEmail, ParticipantId, ParticipantName } from '@domain/participant/models'
 import { ParticipantFirestoreRepository } from '@infra/repository'
 import { FirebaseModule } from '@kobe/firebase'
 import { clearFirestore } from '@kobe/firebase/testing'
@@ -22,6 +22,7 @@ describe('ParticipantFirestoreRepository', () => {
   test('ParticipantEnrolled を store すると findBy で取得できる', async () => {
     const [participant, participantEnrolledEvent] = Participant.enroll({
       name: new ParticipantName('Shota Furuno'),
+      email: new ParticipantEmail('furuno@example.com'),
     })
 
     await participantRepository.store(participant, participantEnrolledEvent)

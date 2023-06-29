@@ -1,6 +1,6 @@
 import { EnrollNewParticipantCommand, EnrollNewParticipantCommandHandler } from '@domain/participant/commands'
 import { ParticipantEnrolled } from '@domain/participant/events'
-import { Participant, ParticipantName } from '@domain/participant/models'
+import { Participant, ParticipantEmail, ParticipantName } from '@domain/participant/models'
 import { ParticipantMockRepository } from '@infra/repository'
 import { CommandBus, CqrsModule, EventBus } from '@nestjs/cqrs'
 import { Test, TestingModule } from '@nestjs/testing'
@@ -29,7 +29,10 @@ describe('EnrollNewParticipantCommand', () => {
   test('参加者が登録される', async () => {
     const participantRepository = testApp.get<ParticipantMockRepository>(Token.ParticipantRepository)
 
-    const command = new EnrollNewParticipantCommand(new ParticipantName('Norio Yamashita'))
+    const command = new EnrollNewParticipantCommand(
+      new ParticipantName('Norio Yamashita'),
+      new ParticipantEmail('yamashita@example.com'),
+    )
     await commandBus.execute(command)
 
     expect(participantRepository.store).toBeCalledWith(expect.any(Participant), expect.any(ParticipantEnrolled))
@@ -39,7 +42,10 @@ describe('EnrollNewParticipantCommand', () => {
     const eventBus = testApp.get(EventBus)
     jest.spyOn(eventBus, 'publish')
 
-    const command = new EnrollNewParticipantCommand(new ParticipantName('Norio Yamashita'))
+    const command = new EnrollNewParticipantCommand(
+      new ParticipantName('Norio Yamashita'),
+      new ParticipantEmail('yamashita@example.com'),
+    )
     await commandBus.execute(command)
 
     expect(eventBus.publish).toBeCalledWith(expect.any(ParticipantEnrolled))

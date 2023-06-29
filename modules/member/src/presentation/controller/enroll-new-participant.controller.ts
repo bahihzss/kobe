@@ -5,6 +5,9 @@ import { IsString } from 'class-validator'
 export class EnrollNewParticipantRequest {
   @IsString()
   name!: string
+
+  @IsString()
+  email!: string
 }
 
 @Controller('/participants')
@@ -16,6 +19,7 @@ export class EnrollNewParticipantController {
   async handle(@Body() request: EnrollNewParticipantRequest) {
     await this.enrollNewParticipantUseCase.execute({
       name: request.name,
+      email: request.email,
     })
 
     return {
