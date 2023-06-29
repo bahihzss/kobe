@@ -7,9 +7,4 @@ export interface ProgressRepository {
   save(progress: Progress): Promise<void>
 
   findById(id: ProgressId): Promise<Progress | undefined>
-
-  findByChallengeAndAssignee(params: {
-    challengeId: ChallengeId
-    assigneeId: ParticipantId
-  }): Promise<Progress | undefined>
 }

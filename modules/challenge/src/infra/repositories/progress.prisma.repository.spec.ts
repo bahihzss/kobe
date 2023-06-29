@@ -20,23 +20,6 @@ describe('ProgressPrismaRepository', () => {
     progressRepository = testApp.get(ProgressPrismaRepository)
   })
 
-  test('save で保存したものを findByChallengeAndAssignee で取得できる', async () => {
-    const challengeId = new ChallengeId(PrismaSeeder.data.challenge.id)
-    const assigneeId = new ParticipantId(PrismaSeeder.data.participant.id)
-    const createdProgress = Progress.assign({
-      challengeId,
-      assigneeId,
-    })
-
-    await progressRepository.save(createdProgress)
-    const foundProcess = await progressRepository.findByChallengeAndAssignee({
-      challengeId,
-      assigneeId,
-    })
-
-    expect(foundProcess).toEqual(createdProgress)
-  })
-
   test('save で保存したものを findById で取得できる', async () => {
     const challengeId = new ChallengeId(PrismaSeeder.data.challenge.id)
     const assigneeId = new ParticipantId(PrismaSeeder.data.participant.id)

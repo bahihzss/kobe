@@ -46,23 +46,4 @@ export class ProgressPrismaRepository implements ProgressRepository {
         })
       : undefined
   }
-
-  async findByChallengeAndAssignee(params: { challengeId: ChallengeId; assigneeId: ParticipantId }) {
-    const rawProgress = await this.prisma.progress.findUnique({
-      where: {
-        assigneeId_challengeId: {
-          assigneeId: params.assigneeId.value,
-          challengeId: params.challengeId.value,
-        },
-      },
-    })
-
-    return rawProgress
-      ? Progress.reconstruct({
-          assigneeId: new ParticipantId(rawProgress.assigneeId),
-          challengeId: new ChallengeId(rawProgress.challengeId),
-          status: new ProgressStatus(rawProgress.status),
-        })
-      : undefined
-  }
 }
