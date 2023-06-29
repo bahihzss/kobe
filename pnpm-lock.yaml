@@ -270,6 +270,9 @@ importers:
       '@types/node':
         specifier: 20.2.5
         version: 20.2.5
+      concurrently:
+        specifier: ^8.2.0
+        version: 8.2.0
       eslint:
         specifier: ^8.43.0
         version: 8.43.0

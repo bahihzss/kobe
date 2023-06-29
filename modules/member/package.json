@@ -3,7 +3,8 @@
   "main": "dist/index.js",
   "version": "0.0.0",
   "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.build.json && tsc-alias"
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && tsc-alias",
+    "dev": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\""
   },
   "dependencies": {
     "@kobe/common": "workspace:^",
@@ -28,6 +29,7 @@
     "@types/express": "^4.17.13",
     "@types/jest": "29.5.1",
     "@types/node": "20.2.5",
+    "concurrently": "^8.2.0",
     "eslint": "^8.43.0",
     "eslint-config-kobe": "workspace:^",
     "jest": "29.5.0",
