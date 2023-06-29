@@ -6,6 +6,6 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
 @Module({
-  imports: [ConfigModule.forRoot(), FirebaseModule, MemberCommandModule, ChallengeModule],
+  imports: [ConfigModule.forRoot(), MemberCommandModule, ChallengeModule],
 })
 export class AppModule {}

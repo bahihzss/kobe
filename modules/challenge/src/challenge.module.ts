@@ -20,12 +20,6 @@ import { Token } from '@root/token'
   providers: [
     PrismaService,
 
-    // controller
-    StartChallengeController,
-    RequestReviewController,
-    CompleteChallengeController,
-    ListProgressesController,
-
     // use-case
     StartChallengeUseCase,
     RequestReviewUseCase,
@@ -43,6 +37,12 @@ import { Token } from '@root/token'
       provide: Token.ProgressRepository,
       useClass: ProgressPrismaRepository,
     },
+  ],
+  controllers: [
+    StartChallengeController,
+    RequestReviewController,
+    CompleteChallengeController,
+    ListProgressesController,
   ],
 })
 export class ChallengeModule {}
