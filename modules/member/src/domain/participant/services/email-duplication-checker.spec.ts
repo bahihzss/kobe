@@ -1,7 +1,7 @@
 import { ParticipantEmail } from '@domain/participant/models'
 import { EmailDuplicationChecker } from '@domain/participant/services/email-duplication-checker'
 import { ParticipantFirestoreRepository } from '@infra/repository'
-import { MemberSeeder } from '@infra/seeder'
+import { PrismaSeeder } from '@infra/seeder'
 import { FirebaseModule } from '@kobe/firebase'
 import { clearFirestore } from '@kobe/firebase/testing'
 import { Test } from '@nestjs/testing'
@@ -16,7 +16,7 @@ describe('EmailDuplicationChecker', () => {
     const testApp = await Test.createTestingModule({
       imports: [FirebaseModule],
       providers: [
-        MemberSeeder,
+        PrismaSeeder,
         {
           provide: Token.ParticipantRepository,
           useClass: ParticipantFirestoreRepository,
@@ -25,7 +25,7 @@ describe('EmailDuplicationChecker', () => {
       ],
     }).compile()
 
-    await testApp.get(MemberSeeder).seed()
+    await testApp.get(PrismaSeeder).seed()
 
     checker = testApp.get(EmailDuplicationChecker)
   })

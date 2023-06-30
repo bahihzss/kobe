@@ -1,4 +1,4 @@
 import { EnrollNewParticipantController } from '@presentation/controller/enroll-new-participant.controller'
-import { SeedController } from '@presentation/controller/seed.controller'
+import { RefreshController } from '@presentation/controller/refresh.controller'
 
-export const controllers = [EnrollNewParticipantController, SeedController]
+export const controllers = [EnrollNewParticipantController, RefreshController]

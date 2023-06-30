@@ -8,7 +8,7 @@ import { patterns } from '@kobe/patterns'
 
 describe('Progress', () => {
   test('課題を参加者に割り当てて進捗を作成できる', () => {
-    const newProgress = Progress.assign({
+    const newProgress = Progress.create({
       assigneeId: new ParticipantId('01H3S57SMZMS646Z273EQV6D2T'),
       challengeId: new ChallengeId('01H3S58CHCG3P49SZ19N8XJQ92'),
     })
@@ -37,7 +37,7 @@ describe('Progress', () => {
   })
 
   test('課題を開始できる', () => {
-    const progress = Progress.assign({
+    const progress = Progress.create({
       assigneeId: new ParticipantId('01H3S57SMZMS646Z273EQV6D2T'),
       challengeId: new ChallengeId('01H3S58CHCG3P49SZ19N8XJQ92'),
     })
@@ -51,7 +51,7 @@ describe('Progress', () => {
   })
 
   test('課題は本人しか開始できない', () => {
-    const progress = Progress.assign({
+    const progress = Progress.create({
       assigneeId: new ParticipantId('01H3S57SMZMS646Z273EQV6D2T'),
       challengeId: new ChallengeId('01H3S58CHCG3P49SZ19N8XJQ92'),
     })
@@ -66,7 +66,7 @@ describe('Progress', () => {
   })
 
   test('課題のレビューをリクエストできる', () => {
-    const progress = Progress.assign({
+    const progress = Progress.create({
       assigneeId: new ParticipantId('01H3S57SMZMS646Z273EQV6D2T'),
       challengeId: new ChallengeId('01H3S58CHCG3P49SZ19N8XJQ92'),
     })
@@ -80,7 +80,7 @@ describe('Progress', () => {
   })
 
   test('本人しか課題のレビューをリクエストできない', () => {
-    const progress = Progress.assign({
+    const progress = Progress.create({
       assigneeId: new ParticipantId('01H3S57SMZMS646Z273EQV6D2T'),
       challengeId: new ChallengeId('01H3S58CHCG3P49SZ19N8XJQ92'),
     })
@@ -95,7 +95,7 @@ describe('Progress', () => {
   })
 
   test('課題のレビューを完了できる', () => {
-    const progress = Progress.assign({
+    const progress = Progress.create({
       assigneeId: new ParticipantId('01H3S57SMZMS646Z273EQV6D2T'),
       challengeId: new ChallengeId('01H3S58CHCG3P49SZ19N8XJQ92'),
     })
@@ -109,7 +109,7 @@ describe('Progress', () => {
   })
 
   test('本人しか課題を完了できない', () => {
-    const progress = Progress.assign({
+    const progress = Progress.create({
       assigneeId: new ParticipantId('01H3S57SMZMS646Z273EQV6D2T'),
       challengeId: new ChallengeId('01H3S58CHCG3P49SZ19N8XJQ92'),
     })

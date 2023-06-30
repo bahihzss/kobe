@@ -29,6 +29,6 @@ export class CompleteChallengeUseCase {
     }
 
     const completedProgress = progress.complete({ operatorId: assigneeId })
-    await this.progressRepository.save(completedProgress)
+    await this.progressRepository.update(completedProgress)
   }
 }

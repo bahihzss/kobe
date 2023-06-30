@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "nest start --webpack --watch"
+    "dev": "nest start --webpack --watch",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@kobe/challenge": "workspace:^",

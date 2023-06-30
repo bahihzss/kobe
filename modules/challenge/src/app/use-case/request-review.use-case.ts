@@ -29,6 +29,6 @@ export class RequestReviewUseCase {
     }
 
     const requestedProgress = progress.requestReview({ operatorId: assigneeId })
-    await this.progressRepository.save(requestedProgress)
+    await this.progressRepository.update(requestedProgress)
   }
 }

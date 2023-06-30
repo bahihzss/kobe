@@ -4,13 +4,16 @@
   "version": "0.0.0",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json && tsc-alias",
-    "dev": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\""
+    "dev": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@kobe/common": "workspace:^",
+    "@kobe/member": "workspace:^",
     "@kobe/patterns": "workspace:^",
     "@nestjs/common": "^9.4.2",
     "@nestjs/core": "^9.4.2",
+    "@nestjs/cqrs": "^9.0.4",
     "@prisma/client": "^4.16.1",
     "@yuzu441/is-ulid": "^1.0.0",
     "class-transformer": "^0.5.1",

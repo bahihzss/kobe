@@ -29,6 +29,6 @@ export class StartChallengeUseCase {
     }
 
     const startedProgress = progress.start({ operatorId: assigneeId })
-    await this.progressRepository.save(startedProgress)
+    await this.progressRepository.update(startedProgress)
   }
 }

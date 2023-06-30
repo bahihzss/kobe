@@ -3,7 +3,9 @@
   "name": "kobe",
   "version": "0.0.0",
   "scripts": {
-    "emulators:start": "firebase emulators:start --only firestore"
+    "emulators:start": "firebase emulators:start --only firestore",
+    "reinstall": "find ./ -name \"node_modules\" | xargs rm -rf && pnpm install",
+    "refresh": "pnpm reinstall && pnpm --filter @kobe/challenge --filter @kobe/app prisma:generate"
   },
   "devDependencies": {
     "firebase-tools": "^12.3.0",

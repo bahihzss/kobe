@@ -7,13 +7,13 @@ import { IEntity } from '@kobe/common/domain'
 
 export class Progress implements IEntity {
   private constructor(
-    private readonly id: ProgressId,
+    public readonly id: ProgressId,
     private readonly status: ProgressStatus,
     private readonly assigneeId: ParticipantId,
     private readonly challengeId: ChallengeId,
   ) {}
 
-  static assign(params: { challengeId: ChallengeId; assigneeId: ParticipantId }) {
+  static create(params: { challengeId: ChallengeId; assigneeId: ParticipantId }) {
     const id = ProgressId.compositeFrom(params.challengeId, params.assigneeId)
     return new Progress(id, ProgressStatus.todo, params.assigneeId, params.challengeId)
   }

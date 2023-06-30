@@ -9,7 +9,7 @@ import { Injectable } from '@nestjs/common'
 export class ProgressPrismaRepository implements ProgressRepository {
   constructor(private prisma: PrismaService) {}
 
-  async save(progress: Progress) {
+  async update(progress: Progress) {
     const serialized = progress.serialize()
 
     await this.prisma.progress.upsert({
@@ -25,6 +25,12 @@ export class ProgressPrismaRepository implements ProgressRepository {
       create: {
         ...serialized,
       },
+    })
+  }
+
+  async insertMany(progresses: Progress[]) {
+    await this.prisma.progress.createMany({
+      data: progresses.map((progress) => progress.serialize()),
     })
   }
 

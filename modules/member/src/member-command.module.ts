@@ -1,7 +1,7 @@
 import { useCases } from '@app/use-case'
 import { sagas } from '@domain/sagas'
 import { repositories } from '@infra/repository'
-import { MemberSeeder } from '@infra/seeder'
+import { PrismaSeeder } from '@infra/seeder'
 import { FirebaseModule } from '@kobe/firebase'
 import { Module } from '@nestjs/common'
 import { CqrsModule } from '@nestjs/cqrs'
@@ -19,7 +19,7 @@ import { commandHandlers, domainServices } from '@root/domain'
     ...domainServices,
     // infra
     ...repositories,
-    MemberSeeder,
+    PrismaSeeder,
   ],
   controllers: controllers,
 })
