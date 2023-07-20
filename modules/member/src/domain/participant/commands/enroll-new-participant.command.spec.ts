@@ -1,6 +1,7 @@
 import { EnrollNewParticipantCommand, EnrollNewParticipantCommandHandler } from '@domain/participant/commands'
 import { ParticipantEnrolled } from '@domain/participant/events'
 import { Participant, ParticipantEmail, ParticipantName } from '@domain/participant/models'
+import { EmailDuplicatedException } from '@domain/participant/services/email-duplicated.exception'
 import { EmailDuplicationChecker } from '@domain/participant/services/email-duplication-checker'
 import { Faker } from '@domain/utils'
 import { ParticipantMockRepository } from '@infra/repository'
@@ -68,7 +69,6 @@ describe('EnrollNewParticipantCommand', () => {
 
     const act = () => commandBus.execute(command)
 
-    await expect(act).rejects.toThrow(DomainException)
-    await expect(act).rejects.toThrow('すでに登録済みのメールアドレスです。')
+    await expect(act).rejects.toThrow(EmailDuplicatedException)
   })
 })

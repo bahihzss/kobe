@@ -20,11 +20,7 @@ export class EnrollNewParticipantCommandHandler implements ICommandHandler {
   ) {}
 
   async execute(command: EnrollNewParticipantCommand) {
-    const isDuplicate = await this.emailDuplicationChecker.isDuplicate(command.email)
-
-    if (isDuplicate) {
-      throw new DomainException('すでに登録済みのメールアドレスです。')
-    }
+    await this.emailDuplicationChecker.throwIfDuplicate(command.email)
 
     const [participant, participantEnrolled] = Participant.enroll({
       name: command.name,

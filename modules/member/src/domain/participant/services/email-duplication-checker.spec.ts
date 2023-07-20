@@ -1,4 +1,5 @@
 import { ParticipantEmail } from '@domain/participant/models'
+import { EmailDuplicatedException } from '@domain/participant/services/email-duplicated.exception'
 import { EmailDuplicationChecker } from '@domain/participant/services/email-duplication-checker'
 import { ParticipantFirestoreRepository } from '@infra/repository'
 import { PrismaSeeder } from '@infra/seeder'
@@ -30,15 +31,9 @@ describe('EmailDuplicationChecker', () => {
     checker = testApp.get(EmailDuplicationChecker)
   })
 
-  test('存在する場合は true を返す', () => {
+  test('存在する場合は例外を投げる', () => {
     const email = new ParticipantEmail('taro.yamada@example.com')
 
-    return expect(checker.isDuplicate(email)).resolves.toBe(true)
-  })
-
-  test('存在しない場合は false を返す', () => {
-    const email = new ParticipantEmail('kodai.nakagawa@example.com')
-
-    return expect(checker.isDuplicate(email)).resolves.toBe(false)
+    return expect(() => checker.throwIfDuplicate(email)).rejects.toThrow(EmailDuplicatedException)
   })
 })
