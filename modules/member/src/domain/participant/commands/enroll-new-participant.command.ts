@@ -1,5 +1,7 @@
 import { ParticipantRepository } from '@domain/participant/interfaces'
 import { Participant, ParticipantEmail, ParticipantName } from '@domain/participant/models'
+import { EmailDuplicationChecker } from '@domain/participant/services/email-duplication-checker'
+import { DomainException } from '@kobe/common/domain'
 import { Inject } from '@nestjs/common'
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs'
 import { Token } from '@root/token'
@@ -14,9 +16,16 @@ export class EnrollNewParticipantCommandHandler implements ICommandHandler {
     private eventBus: EventBus,
     @Inject(Token.ParticipantRepository)
     private participantRepository: ParticipantRepository,
+    private emailDuplicationChecker: EmailDuplicationChecker,
   ) {}
 
   async execute(command: EnrollNewParticipantCommand) {
+    const isDuplicate = await this.emailDuplicationChecker.isDuplicate(command.email)
+
+    if (isDuplicate) {
+      throw new DomainException('すでに登録済みのメールアドレスです。')
+    }
+
     const [participant, participantEnrolled] = Participant.enroll({
       name: command.name,
       email: command.email,

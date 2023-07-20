@@ -2,7 +2,6 @@ import { Participant, ParticipantEmail, ParticipantId, ParticipantName } from '@
 import { ParticipantFirestoreRepository } from '@infra/repository'
 import { FirebaseModule } from '@kobe/firebase'
 import { clearFirestore } from '@kobe/firebase/testing'
-import { ConfigModule } from '@nestjs/config'
 import { Test } from '@nestjs/testing'
 
 describe('ParticipantFirestoreRepository', () => {

@@ -2,6 +2,7 @@ import { EnrollNewParticipantUseCase } from '@app/use-case'
 import { EnrollNewParticipantCommand, EnrollNewParticipantCommandHandler } from '@domain/participant/commands'
 import { ParticipantEnrolled } from '@domain/participant/events'
 import { ParticipantEmail, ParticipantName } from '@domain/participant/models'
+import { EmailDuplicationChecker } from '@domain/participant/services/email-duplication-checker'
 import { EnrollmentSagas } from '@domain/sagas'
 import { AddMemberCommandHandler } from '@domain/team/commands'
 import { TeamMemberAdded } from '@domain/team/events'
@@ -30,6 +31,7 @@ describe('EnrollmentSagas', () => {
         EnrollNewParticipantCommandHandler,
         AddMemberCommandHandler,
         OpenTeamFinder,
+        EmailDuplicationChecker,
         {
           provide: Token.ParticipantRepository,
           useClass: ParticipantInMemoryRepository,

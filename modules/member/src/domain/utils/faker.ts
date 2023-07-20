@@ -1,4 +1,4 @@
-import { ParticipantId } from '@domain/participant/models'
+import { Participant, ParticipantEmail, ParticipantId, ParticipantName } from '@domain/participant/models'
 import { Team } from '@domain/team/models'
 import { TeamMembers } from '@domain/team/models/team-members'
 
@@ -24,8 +24,18 @@ const team = (memberCount = 3) => {
   return team
 }
 
+const participant = (params: { name?: string; email?: string } = {}) => {
+  const [participant] = Participant.enroll({
+    name: new ParticipantName(params.name ?? 'Norio Yamashita'),
+    email: new ParticipantEmail(params.email ?? 'yamashita@example.com'),
+  })
+
+  return participant
+}
+
 export const Faker = {
   ulid,
+  participant,
   participantIdArray,
   teamMembers,
   team,

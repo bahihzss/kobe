@@ -1,14 +1,13 @@
 import { EnrollNewParticipantUseCase } from '@app/use-case'
 import { EnrollNewParticipantCommandHandler } from '@domain/participant/commands'
+import { EmailDuplicationChecker } from '@domain/participant/services/email-duplication-checker'
 import { collection } from '@infra/collection'
 import { ParticipantFirestoreRepository } from '@infra/repository'
 import { FirebaseModule } from '@kobe/firebase'
 import { clearFirestore, fetchFirst } from '@kobe/firebase/testing'
 import { patterns } from '@kobe/patterns'
-import { ConfigModule } from '@nestjs/config'
 import { CqrsModule } from '@nestjs/cqrs'
 import { Test, TestingModule } from '@nestjs/testing'
-import { MemberCommandModule } from '@root/member-command.module'
 import { Token } from '@root/token'
 import { Firestore, Timestamp } from 'firebase-admin/firestore'
 
@@ -23,6 +22,7 @@ describe('EnrollNewParticipantUseCase', () => {
       providers: [
         EnrollNewParticipantUseCase,
         EnrollNewParticipantCommandHandler,
+        EmailDuplicationChecker,
         {
           provide: Token.ParticipantRepository,
           useClass: ParticipantFirestoreRepository,

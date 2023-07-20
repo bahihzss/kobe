@@ -17,10 +17,12 @@ export class EnrollNewParticipantController {
   @Post()
   @HttpCode(201)
   async handle(@Body() request: EnrollNewParticipantRequest) {
-    await this.enrollNewParticipantUseCase.execute({
-      name: request.name,
-      email: request.email,
-    })
+    try {
+      await this.enrollNewParticipantUseCase.execute({
+        name: request.name,
+        email: request.email,
+      })
+    } catch (e) {}
 
     return {
       statusCode: 201,
