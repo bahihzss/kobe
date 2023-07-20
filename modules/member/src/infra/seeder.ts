@@ -1,7 +1,6 @@
 import { ParticipantEnrolled } from '@domain/participant/events'
 import { references } from '@infra/refs'
 import { Injectable } from '@nestjs/common'
-import { EventBus } from '@nestjs/cqrs'
 import { Firestore, FieldValue } from 'firebase-admin/firestore'
 
 const ulidBase = {
@@ -16,7 +15,7 @@ const firstNames = ['Taro', 'Hanako', 'Keita', 'Misaki', 'Kenta', 'Makoto']
 
 @Injectable()
 export class PrismaSeeder {
-  constructor(private firestore: Firestore, private eventBus: EventBus) {}
+  constructor(private firestore: Firestore) {}
 
   async seed() {
     const refs = references(this.firestore)
