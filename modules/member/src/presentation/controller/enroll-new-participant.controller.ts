@@ -1,5 +1,6 @@
 import { EnrollNewParticipantUseCase } from '@app/use-case'
-import { Body, Controller, HttpCode, Post } from '@nestjs/common'
+import { EmailDuplicatedException } from '@domain/participant/services/email-duplicated.exception'
+import { Body, Controller, HttpCode, HttpException, Post } from '@nestjs/common'
 import { IsString } from 'class-validator'
 
 export class EnrollNewParticipantRequest {
@@ -22,7 +23,17 @@ export class EnrollNewParticipantController {
         name: request.name,
         email: request.email,
       })
-    } catch (e) {}
+    } catch (e) {
+      if (e instanceof EmailDuplicatedException) {
+        throw new HttpException(
+          {
+            statusCode: 409,
+            message: 'すでに登録されているメールアドレスです。',
+          },
+          409,
+        )
+      }
+    }
 
     return {
       statusCode: 201,
