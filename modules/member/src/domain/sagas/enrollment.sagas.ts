@@ -1,5 +1,5 @@
 import { ParticipantEnrolled } from '@domain/participant/events'
-import { AddMemberCommand } from '@domain/team/commands'
+import { AddTeamMemberCommand } from '@domain/team/commands'
 import { ofType, Saga } from '@nestjs/cqrs'
 import { map, Observable } from 'rxjs'
 
@@ -8,7 +8,7 @@ export class EnrollmentSagas {
   participantEnrolled = (events$: Observable<any>) => {
     return events$.pipe(
       ofType(ParticipantEnrolled),
-      map((event) => new AddMemberCommand(event.participantId)),
+      map((event) => new AddTeamMemberCommand(event.participantId)),
     )
   }
 }

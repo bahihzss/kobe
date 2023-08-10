@@ -4,7 +4,7 @@ import { ParticipantEnrolled } from '@domain/participant/events'
 import { ParticipantEmail, ParticipantName } from '@domain/participant/models'
 import { EmailDuplicationChecker } from '@domain/participant/services/email-duplication-checker'
 import { EnrollmentSagas } from '@domain/sagas'
-import { AddMemberCommandHandler } from '@domain/team/commands'
+import { AddTeamMemberCommandHandler } from '@domain/team/commands'
 import { TeamMemberAdded } from '@domain/team/events'
 import { Team } from '@domain/team/models'
 import { OpenTeamFinder } from '@domain/team/services'
@@ -29,7 +29,7 @@ describe('EnrollmentSagas', () => {
       providers: [
         EnrollmentSagas,
         EnrollNewParticipantCommandHandler,
-        AddMemberCommandHandler,
+        AddTeamMemberCommandHandler,
         OpenTeamFinder,
         EmailDuplicationChecker,
         {

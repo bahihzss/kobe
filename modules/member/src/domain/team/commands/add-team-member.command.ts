@@ -5,12 +5,12 @@ import { Inject } from '@nestjs/common'
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs'
 import { Token } from '@root/token'
 
-export class AddMemberCommand {
+export class AddTeamMemberCommand {
   constructor(public readonly participantId: ParticipantId) {}
 }
 
-@CommandHandler(AddMemberCommand)
-export class AddMemberCommandHandler implements ICommandHandler<AddMemberCommand> {
+@CommandHandler(AddTeamMemberCommand)
+export class AddTeamMemberCommandHandler implements ICommandHandler<AddTeamMemberCommand> {
   constructor(
     @Inject(Token.TeamRepository)
     private readonly teamRepository: TeamRepository,
@@ -18,7 +18,7 @@ export class AddMemberCommandHandler implements ICommandHandler<AddMemberCommand
     private readonly eventBus: EventBus,
   ) {}
 
-  async execute(command: AddMemberCommand) {
+  async execute(command: AddTeamMemberCommand) {
     const openTeam = await this.openTeamFinder.find()
     const [addedTeam, teamMemberAdded] = openTeam.addMember(command.participantId)
 

@@ -1,5 +1,5 @@
 import { ParticipantId } from '@domain/participant/models'
-import { AddMemberCommand, AddMemberCommandHandler } from '@domain/team/commands'
+import { AddTeamMemberCommand, AddTeamMemberCommandHandler } from '@domain/team/commands'
 import { TeamMemberAdded } from '@domain/team/events'
 import { Team } from '@domain/team/models'
 import { OpenTeamFinder } from '@domain/team/services'
@@ -9,7 +9,7 @@ import { CommandBus, CqrsModule, EventBus } from '@nestjs/cqrs'
 import { Test, TestingModule } from '@nestjs/testing'
 import { Token } from '@root/token'
 
-describe('AddMemberCommand', () => {
+describe('AddTeamMemberCommand', () => {
   let testApp: TestingModule
   let commandBus: CommandBus
   let teamRepository: TeamInMemoryRepository
@@ -22,7 +22,7 @@ describe('AddMemberCommand', () => {
           provide: Token.TeamRepository,
           useClass: TeamInMemoryRepository,
         },
-        AddMemberCommandHandler,
+        AddTeamMemberCommandHandler,
         OpenTeamFinder,
       ],
     }).compile()
@@ -38,7 +38,7 @@ describe('AddMemberCommand', () => {
     jest.spyOn(teamRepository, 'store')
     const newMemberId = new ParticipantId()
 
-    await commandBus.execute(new AddMemberCommand(newMemberId))
+    await commandBus.execute(new AddTeamMemberCommand(newMemberId))
 
     expect(teamRepository.store).toBeCalledWith(expect.any(Team), expect.any(TeamMemberAdded))
   })
@@ -48,7 +48,7 @@ describe('AddMemberCommand', () => {
     jest.spyOn(eventBus, 'publish')
     const newMemberId = new ParticipantId()
 
-    await commandBus.execute(new AddMemberCommand(newMemberId))
+    await commandBus.execute(new AddTeamMemberCommand(newMemberId))
 
     expect(eventBus.publish).toBeCalledWith(expect.any(TeamMemberAdded))
   })
