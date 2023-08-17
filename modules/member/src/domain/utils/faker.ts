@@ -1,3 +1,4 @@
+import { Pair } from '@domain/pair/models'
 import { PairMembers } from '@domain/pair/models/pair-members'
 import { Participant, ParticipantEmail, ParticipantId, ParticipantName } from '@domain/participant/models'
 import { Team } from '@domain/team/models'
@@ -38,6 +39,19 @@ const pairMembers = (count = 2) => {
   return new PairMembers(participantIdArray(count))
 }
 
+const pair = (memberCount: 2 | 3 = 2) => {
+  const team = Faker.team(memberCount * 2)
+  const members = new PairMembers(
+    team
+      .serialize()
+      .members.slice(0, memberCount)
+      .map((id) => new ParticipantId(id)),
+  )
+  const [pair] = Pair.create({ members, teamId: team.id })
+
+  return pair
+}
+
 export const Faker = {
   ulid,
   participant,
@@ -45,4 +59,5 @@ export const Faker = {
   teamMembers,
   team,
   pairMembers,
+  pair,
 }

@@ -1,4 +1,5 @@
 import { Pair, PairId, PairName } from '@domain/pair/models'
+import { ParticipantId } from '@domain/participant/models'
 import { TeamId } from '@domain/team/models'
 import { patterns } from '@kobe/patterns'
 import { Faker } from 'src/domain/utils'
@@ -37,6 +38,15 @@ describe('Pair', () => {
 
     expect(pair.serialize().name).toEqual('b')
     expect(pairCreatedEvent.serialize().payload.name).toEqual('b')
+  })
+
+  test('addMember でメンバーを追加できる', () => {
+    const pair = Faker.pair()
+    const newMemberId = new ParticipantId()
+    const [addedPair, pairMemberAddedEvent] = pair.addMember(newMemberId)
+
+    expect(addedPair.serialize().members).toContain(newMemberId.value)
+    expect(pairMemberAddedEvent.serialize().payload.newMemberId).toEqual(newMemberId.value)
   })
 
   test('reconstruct で DB のデータからインスタンスを再構築できる', () => {

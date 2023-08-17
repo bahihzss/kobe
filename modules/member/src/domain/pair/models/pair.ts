@@ -1,6 +1,8 @@
 import { PairCreated } from '@domain/pair/events'
+import { PairMemberAdded } from '@domain/pair/events/pair-member-added'
 import { PairId, PairName } from '@domain/pair/models'
 import { PairMembers } from '@domain/pair/models/pair-members'
+import { ParticipantId } from '@domain/participant/models'
 import { TeamId } from '@domain/team/models'
 import { IEntity } from '@kobe/common/domain'
 
@@ -25,16 +27,16 @@ export class Pair implements IEntity {
     return new Pair(event.pairId, event.name, event.teamId, event.members)
   }
 
-  // addMember(participantId: ParticipantId) {
-  //   const event = new PairMemberAdded(this.id, participantId)
-  //   const pair = this.onMemberAdded(event)
-  //
-  //   return [pair, event] as const
-  // }
-  //
-  // onMemberAdded(event: PairMemberAdded): Pair {
-  //   return new Pair(this.id, this.name, this.teamId)
-  // }
+  addMember(participantId: ParticipantId) {
+    const event = new PairMemberAdded(this.id, participantId)
+    const pair = this.onMemberAdded(event)
+
+    return [pair, event] as const
+  }
+
+  onMemberAdded(event: PairMemberAdded): Pair {
+    return new Pair(this.id, this.name, this.teamId, this.members.add(event.newMemberId))
+  }
 
   equals(other: Pair): boolean {
     return this.id.equals(other.id)
