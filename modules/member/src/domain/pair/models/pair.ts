@@ -1,8 +1,6 @@
 import { PairCreated } from '@domain/pair/events'
-import { PairMemberAdded } from '@domain/pair/events/pair-member-added'
 import { PairId, PairName } from '@domain/pair/models'
 import { PairMembers } from '@domain/pair/models/pair-members'
-import { ParticipantId } from '@domain/participant/models'
 import { TeamId } from '@domain/team/models'
 import { IEntity } from '@kobe/common/domain'
 
