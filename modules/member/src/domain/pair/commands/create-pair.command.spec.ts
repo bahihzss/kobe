@@ -2,6 +2,7 @@ import { CreatePairCommand, CreatePairCommandHandler } from '@domain/pair/comman
 import { PairCreated } from '@domain/pair/events'
 import { Pair } from '@domain/pair/models'
 import { TeamId } from '@domain/team/models'
+import { Faker } from '@domain/utils'
 import { PairInMemoryRepository } from '@infra/repository'
 import { CommandBus, CqrsModule, EventBus } from '@nestjs/cqrs'
 import { Test, TestingModule } from '@nestjs/testing'
@@ -32,7 +33,7 @@ describe('CreatePairCommand', () => {
   test('ペアが作成される', async () => {
     const pairRepository = testApp.get<PairInMemoryRepository>(Token.PairRepository)
 
-    await commandBus.execute(new CreatePairCommand(new TeamId()))
+    await commandBus.execute(new CreatePairCommand(new TeamId(), Faker.pairMembers()))
 
     expect(pairRepository.store).toBeCalledWith(expect.any(Pair), expect.any(PairCreated))
   })
@@ -41,7 +42,7 @@ describe('CreatePairCommand', () => {
     const eventBus = testApp.get(EventBus)
     jest.spyOn(eventBus, 'publish')
 
-    await commandBus.execute(new CreatePairCommand(new TeamId()))
+    await commandBus.execute(new CreatePairCommand(new TeamId(), Faker.pairMembers()))
 
     expect(eventBus.publish).toBeCalledWith(expect.any(PairCreated))
   })

@@ -1,3 +1,4 @@
+import { PairMembers } from '@domain/pair/models/pair-members'
 import { Participant, ParticipantEmail, ParticipantId, ParticipantName } from '@domain/participant/models'
 import { Team } from '@domain/team/models'
 import { TeamMembers } from '@domain/team/models/team-members'
@@ -33,10 +34,15 @@ const participant = (params: { name?: string; email?: string } = {}) => {
   return participant
 }
 
+const pairMembers = (count = 2) => {
+  return new PairMembers(participantIdArray(count))
+}
+
 export const Faker = {
   ulid,
   participant,
   participantIdArray,
   teamMembers,
   team,
+  pairMembers,
 }
