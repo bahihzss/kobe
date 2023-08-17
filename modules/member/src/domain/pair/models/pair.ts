@@ -14,6 +14,10 @@ export class Pair implements IEntity {
     private readonly members: PairMembers,
   ) {}
 
+  get isOpen(): boolean {
+    return !this.members.isFull
+  }
+
   static create(args: { members: PairMembers; teamId: TeamId; latestPair?: Pair }) {
     const pairName = args.latestPair ? args.latestPair.name.next : PairName.first
 

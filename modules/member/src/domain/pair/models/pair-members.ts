@@ -12,6 +12,10 @@ export class PairMembers implements ICollection<ParticipantId> {
     this.validate()
   }
 
+  get isFull() {
+    return this.count === PairMembers.MAX_MEMBERS_COUNT
+  }
+
   private validate() {
     if (this.count < PairMembers.MIN_MEMBERS_COUNT) {
       throw new DomainException(`メンバー数は最低 ${PairMembers.MIN_MEMBERS_COUNT} 人必要です`)

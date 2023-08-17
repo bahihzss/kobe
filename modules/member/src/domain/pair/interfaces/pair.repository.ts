@@ -6,4 +6,5 @@ export interface PairRepository {
   store(pair: Pair, pairEvent: PairEvent): Promise<void>
   findById(pairId: PairId): Promise<Pair | undefined>
   findLatest(teamId: TeamId): Promise<Pair | undefined>
+  findManyByTeamId(teamId: TeamId): Promise<Pair[]>
 }

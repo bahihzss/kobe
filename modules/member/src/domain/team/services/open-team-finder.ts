@@ -1,5 +1,6 @@
 import { TeamRepository } from '@domain/team/interfaces'
 import { Team } from '@domain/team/models'
+import { randomOne } from '@domain/utils/randomOne'
 import { DomainException } from '@kobe/common/domain'
 import { Inject, Injectable } from '@nestjs/common'
 import { Token } from '@root/token'
@@ -21,7 +22,7 @@ export class OpenTeamFinder {
     const firstOpenTeam = this.getFirstOpenTeam(allTeams)
     const openTeams = this.getAllOpenTeams(allTeams, firstOpenTeam)
 
-    return this.getRandomOneTeam(openTeams)
+    return randomOne(openTeams)
   }
 
   private getFirstOpenTeam(teams: Team[]) {
@@ -30,10 +31,5 @@ export class OpenTeamFinder {
 
   private getAllOpenTeams(teams: Team[], firstOpenTeam: Team) {
     return teams.filter((team) => team.hasSameMemberCount(firstOpenTeam))
-  }
-
-  private getRandomOneTeam(teams: Team[]) {
-    const randomIndex = Math.floor(Math.random() * teams.length)
-    return teams[randomIndex]
   }
 }
